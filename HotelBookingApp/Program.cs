@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HotelBookingApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,8 @@ namespace HotelBookingApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            HotelBookingApp.Models.DataStorage.Initialize();
+            Application.Run(new Main());
         }
     }
 }

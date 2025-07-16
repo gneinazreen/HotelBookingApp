@@ -28,12 +28,153 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.txtRoomType = new System.Windows.Forms.TextBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.listViewRooms = new System.Windows.Forms.ListView();
+            this.roomType = new System.Windows.Forms.Label();
+            this.txtBasePrice = new System.Windows.Forms.TextBox();
+            this.basePrice = new System.Windows.Forms.Label();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.roomID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.roomTypeC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.basePriceC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnDelete);
+            this.panel1.Controls.Add(this.btnAdd);
+            this.panel1.Controls.Add(this.basePrice);
+            this.panel1.Controls.Add(this.roomType);
+            this.panel1.Controls.Add(this.txtBasePrice);
+            this.panel1.Controls.Add(this.txtRoomType);
+            this.panel1.Location = new System.Drawing.Point(3, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(360, 451);
+            this.panel1.TabIndex = 0;
+            // 
+            // txtRoomType
+            // 
+            this.txtRoomType.Location = new System.Drawing.Point(183, 68);
+            this.txtRoomType.Name = "txtRoomType";
+            this.txtRoomType.Size = new System.Drawing.Size(135, 20);
+            this.txtRoomType.TabIndex = 0;
+            this.txtRoomType.TextChanged += new System.EventHandler(this.txtRoomType_TextChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.listViewRooms);
+            this.panel2.Location = new System.Drawing.Point(364, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(437, 450);
+            this.panel2.TabIndex = 1;
+            // 
+            // listViewRooms
+            // 
+            this.listViewRooms.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.roomID,
+            this.roomTypeC,
+            this.basePriceC});
+            this.listViewRooms.FullRowSelect = true;
+            this.listViewRooms.GridLines = true;
+            this.listViewRooms.HideSelection = false;
+            this.listViewRooms.Location = new System.Drawing.Point(0, 3);
+            this.listViewRooms.Name = "listViewRooms";
+            this.listViewRooms.Size = new System.Drawing.Size(434, 444);
+            this.listViewRooms.TabIndex = 0;
+            this.listViewRooms.UseCompatibleStateImageBehavior = false;
+            this.listViewRooms.View = System.Windows.Forms.View.Details;
+            // 
+            // roomType
+            // 
+            this.roomType.AutoSize = true;
+            this.roomType.Location = new System.Drawing.Point(34, 68);
+            this.roomType.Name = "roomType";
+            this.roomType.Size = new System.Drawing.Size(62, 13);
+            this.roomType.TabIndex = 1;
+            this.roomType.Text = "Room Type";
+            // 
+            // txtBasePrice
+            // 
+            this.txtBasePrice.Location = new System.Drawing.Point(183, 117);
+            this.txtBasePrice.Name = "txtBasePrice";
+            this.txtBasePrice.Size = new System.Drawing.Size(135, 20);
+            this.txtBasePrice.TabIndex = 0;
+            // 
+            // basePrice
+            // 
+            this.basePrice.AutoSize = true;
+            this.basePrice.Location = new System.Drawing.Point(34, 117);
+            this.basePrice.Name = "basePrice";
+            this.basePrice.Size = new System.Drawing.Size(58, 13);
+            this.basePrice.TabIndex = 1;
+            this.basePrice.Text = "Base Price";
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(37, 164);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(165, 164);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // roomID
+            // 
+            this.roomID.Text = "Room ID";
+            // 
+            // roomTypeC
+            // 
+            this.roomTypeC.Text = "Room Type";
+            // 
+            // basePriceC
+            // 
+            this.basePriceC.Text = "Base Price";
+            // 
+            // RoomForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.panel2);
+            this.Controls.Add(this.panel1);
+            this.Name = "RoomForm";
             this.Text = "RoomForm";
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.TextBox txtRoomType;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.ListView listViewRooms;
+        private System.Windows.Forms.Label roomType;
+        private System.Windows.Forms.Label basePrice;
+        private System.Windows.Forms.TextBox txtBasePrice;
+        private System.Windows.Forms.Button btnAdd;
+        private System.Windows.Forms.Button btnDelete;
+        private System.Windows.Forms.ColumnHeader roomID;
+        private System.Windows.Forms.ColumnHeader roomTypeC;
+        private System.Windows.Forms.ColumnHeader basePriceC;
     }
 }
