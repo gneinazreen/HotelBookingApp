@@ -82,5 +82,10 @@ namespace HotelBookingApp.Views
             txtCategory.Clear();
             listViewRequests.SelectedItems.Clear();
         }
+
+        private void listViewRequests_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

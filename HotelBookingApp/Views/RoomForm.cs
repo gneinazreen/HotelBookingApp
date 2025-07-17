@@ -1,4 +1,5 @@
 ﻿using HotelBookingApp.Models;
+using HotelBookingApp.Views.Booking;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,9 +14,11 @@ namespace HotelBookingApp.Views
 {
     public partial class RoomForm : Form
     {
-        public RoomForm()
+        private BookingForm formBooking;
+        public RoomForm(BookingForm bookingForm)
         {
             InitializeComponent();
+            formBooking = bookingForm;
             LoadRooms();
         }
 
@@ -43,6 +46,7 @@ namespace HotelBookingApp.Views
             };
             DataStorage.AddRoom(newRoom);
             LoadRooms();
+            formBooking?.UpdateRoomTypes();
             txtRoomType.Clear();
             txtBasePrice.Clear();
         }
@@ -66,8 +70,17 @@ namespace HotelBookingApp.Views
 
                 if (room != null)
                 {
-                    room.RoomType = txtRoomType.Text;
-                    room.BasePrice = float.TryParse(txtBasePrice.Text, out float price) ? price : 0f;
+                    string newType = txtRoomType.Text.Trim();
+                    string newPriceText = txtBasePrice.Text.Trim();
+
+                    room.RoomType = string.IsNullOrEmpty(newType) ? room.RoomType : newType;
+
+                    if(float.TryParse(newPriceText, out float newPrice))
+                    {
+                        room.BasePrice = newPrice;
+                    }
+
+                    //room.BasePrice = float.TryParse(txtBasePrice.Text, out float price) ? price : 0f;
 
                     LoadRooms();
                     ClearFields();
@@ -80,6 +93,21 @@ namespace HotelBookingApp.Views
             txtRoomType.Clear();
             txtBasePrice.Clear();
             listViewRooms.SelectedItems.Clear();
+        }
+
+        private void listViewRooms_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listViewRooms.SelectedItems.Count > 0)
+            {
+                int id = int.Parse(listViewRooms.SelectedItems[0].Text);
+                var room = DataStorage.Rooms.Find(r => r.RoomId == id);
+
+                if (room != null)
+                {
+                    txtRoomType.Text = room.RoomType;
+                    txtBasePrice.Text = room.BasePrice.ToString("F2");
+                }
+            }
         }
     }
 }

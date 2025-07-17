@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.basePrice = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.roomID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.roomTypeC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.basePriceC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -54,14 +54,24 @@
             this.panel1.Controls.Add(this.roomType);
             this.panel1.Controls.Add(this.txtBasePrice);
             this.panel1.Controls.Add(this.txtRoomType);
-            this.panel1.Location = new System.Drawing.Point(3, 0);
+            this.panel1.Location = new System.Drawing.Point(0, 122);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(360, 451);
+            this.panel1.Size = new System.Drawing.Size(316, 257);
             this.panel1.TabIndex = 0;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(117, 134);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 4;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(261, 234);
+            this.btnDelete.Location = new System.Drawing.Point(210, 134);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 3;
@@ -71,7 +81,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(54, 234);
+            this.btnAdd.Location = new System.Drawing.Point(21, 134);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 2;
@@ -82,7 +92,7 @@
             // basePrice
             // 
             this.basePrice.AutoSize = true;
-            this.basePrice.Location = new System.Drawing.Point(34, 117);
+            this.basePrice.Location = new System.Drawing.Point(34, 95);
             this.basePrice.Name = "basePrice";
             this.basePrice.Size = new System.Drawing.Size(58, 13);
             this.basePrice.TabIndex = 1;
@@ -91,7 +101,7 @@
             // roomType
             // 
             this.roomType.AutoSize = true;
-            this.roomType.Location = new System.Drawing.Point(34, 68);
+            this.roomType.Location = new System.Drawing.Point(34, 44);
             this.roomType.Name = "roomType";
             this.roomType.Size = new System.Drawing.Size(62, 13);
             this.roomType.TabIndex = 1;
@@ -99,14 +109,14 @@
             // 
             // txtBasePrice
             // 
-            this.txtBasePrice.Location = new System.Drawing.Point(183, 117);
+            this.txtBasePrice.Location = new System.Drawing.Point(127, 95);
             this.txtBasePrice.Name = "txtBasePrice";
             this.txtBasePrice.Size = new System.Drawing.Size(135, 20);
             this.txtBasePrice.TabIndex = 0;
             // 
             // txtRoomType
             // 
-            this.txtRoomType.Location = new System.Drawing.Point(183, 68);
+            this.txtRoomType.Location = new System.Drawing.Point(127, 44);
             this.txtRoomType.Name = "txtRoomType";
             this.txtRoomType.Size = new System.Drawing.Size(135, 20);
             this.txtRoomType.TabIndex = 0;
@@ -115,9 +125,9 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.listViewRooms);
-            this.panel2.Location = new System.Drawing.Point(364, 0);
+            this.panel2.Location = new System.Drawing.Point(314, 122);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(437, 450);
+            this.panel2.Size = new System.Drawing.Size(402, 257);
             this.panel2.TabIndex = 1;
             // 
             // listViewRooms
@@ -129,12 +139,13 @@
             this.listViewRooms.FullRowSelect = true;
             this.listViewRooms.GridLines = true;
             this.listViewRooms.HideSelection = false;
-            this.listViewRooms.Location = new System.Drawing.Point(0, 3);
+            this.listViewRooms.Location = new System.Drawing.Point(3, 3);
             this.listViewRooms.Name = "listViewRooms";
-            this.listViewRooms.Size = new System.Drawing.Size(434, 444);
+            this.listViewRooms.Size = new System.Drawing.Size(394, 254);
             this.listViewRooms.TabIndex = 0;
             this.listViewRooms.UseCompatibleStateImageBehavior = false;
             this.listViewRooms.View = System.Windows.Forms.View.Details;
+            this.listViewRooms.SelectedIndexChanged += new System.EventHandler(this.listViewRooms_SelectedIndexChanged);
             // 
             // roomID
             // 
@@ -148,21 +159,11 @@
             // 
             this.basePriceC.Text = "Base Price";
             // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(169, 234);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdate.TabIndex = 4;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
             // RoomForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(712, 382);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "RoomForm";

@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.checkRecurring = new System.Windows.Forms.CheckBox();
-            this.txtSpecialRequest = new System.Windows.Forms.TextBox();
             this.txtFName = new System.Windows.Forms.TextBox();
             this.txtLName = new System.Windows.Forms.TextBox();
             this.checkOutDate = new System.Windows.Forms.DateTimePicker();
@@ -55,19 +55,20 @@
             this.checkIn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkOut = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.requests = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnUpdate = new System.Windows.Forms.Button();
+            this.cmbRequests = new System.Windows.Forms.ComboBox();
+            this.recurrence = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.cmbRequests);
             this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.checkRecurring);
-            this.panel1.Controls.Add(this.txtSpecialRequest);
             this.panel1.Controls.Add(this.txtFName);
             this.panel1.Controls.Add(this.txtLName);
             this.panel1.Controls.Add(this.checkOutDate);
@@ -80,14 +81,24 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.LName);
             this.panel1.Controls.Add(this.FName);
-            this.panel1.Location = new System.Drawing.Point(1, 0);
+            this.panel1.Location = new System.Drawing.Point(1, 104);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(382, 399);
+            this.panel1.Size = new System.Drawing.Size(377, 329);
             this.panel1.TabIndex = 13;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(97, 287);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 47;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(245, 336);
+            this.btnDelete.Location = new System.Drawing.Point(178, 287);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 46;
@@ -96,7 +107,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(36, 336);
+            this.btnAdd.Location = new System.Drawing.Point(16, 287);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 45;
@@ -106,7 +117,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(33, 289);
+            this.label3.Location = new System.Drawing.Point(121, 254);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(100, 13);
             this.label3.TabIndex = 44;
@@ -122,25 +133,18 @@
             this.checkRecurring.Text = "Recurring";
             this.checkRecurring.UseVisualStyleBackColor = true;
             // 
-            // txtSpecialRequest
-            // 
-            this.txtSpecialRequest.Location = new System.Drawing.Point(146, 214);
-            this.txtSpecialRequest.Name = "txtSpecialRequest";
-            this.txtSpecialRequest.Size = new System.Drawing.Size(100, 20);
-            this.txtSpecialRequest.TabIndex = 42;
-            // 
             // txtFName
             // 
             this.txtFName.Location = new System.Drawing.Point(146, 34);
             this.txtFName.Name = "txtFName";
-            this.txtFName.Size = new System.Drawing.Size(121, 20);
+            this.txtFName.Size = new System.Drawing.Size(200, 20);
             this.txtFName.TabIndex = 41;
             // 
             // txtLName
             // 
             this.txtLName.Location = new System.Drawing.Point(146, 69);
             this.txtLName.Name = "txtLName";
-            this.txtLName.Size = new System.Drawing.Size(121, 20);
+            this.txtLName.Size = new System.Drawing.Size(200, 20);
             this.txtLName.TabIndex = 40;
             // 
             // checkOutDate
@@ -191,7 +195,7 @@
             "None",
             "Weekly",
             "Monthly"});
-            this.cmbRecPattern.Location = new System.Drawing.Point(146, 281);
+            this.cmbRecPattern.Location = new System.Drawing.Point(227, 249);
             this.cmbRecPattern.Name = "cmbRecPattern";
             this.cmbRecPattern.Size = new System.Drawing.Size(121, 21);
             this.cmbRecPattern.TabIndex = 34;
@@ -205,8 +209,9 @@
             "Suite"});
             this.cmbRoomType.Location = new System.Drawing.Point(146, 103);
             this.cmbRoomType.Name = "cmbRoomType";
-            this.cmbRoomType.Size = new System.Drawing.Size(121, 21);
+            this.cmbRoomType.Size = new System.Drawing.Size(200, 21);
             this.cmbRoomType.TabIndex = 33;
+            this.cmbRoomType.SelectedIndexChanged += new System.EventHandler(this.cmbRoomType_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -238,9 +243,9 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.listViewBookings);
-            this.panel2.Location = new System.Drawing.Point(384, 1);
+            this.panel2.Location = new System.Drawing.Point(381, 104);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(531, 397);
+            this.panel2.Size = new System.Drawing.Size(647, 329);
             this.panel2.TabIndex = 14;
             // 
             // listViewBookings
@@ -254,19 +259,22 @@
             this.roomType,
             this.checkIn,
             this.checkOut,
-            this.requests});
+            this.requests,
+            this.recurrence});
             this.listViewBookings.Dock = System.Windows.Forms.DockStyle.Right;
-            this.listViewBookings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.listViewBookings.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listViewBookings.FullRowSelect = true;
             this.listViewBookings.GridLines = true;
             this.listViewBookings.HideSelection = false;
-            this.listViewBookings.Location = new System.Drawing.Point(-3, 0);
+            this.listViewBookings.LabelWrap = false;
+            this.listViewBookings.Location = new System.Drawing.Point(3, 0);
             this.listViewBookings.Name = "listViewBookings";
-            this.listViewBookings.Size = new System.Drawing.Size(534, 397);
+            this.listViewBookings.Size = new System.Drawing.Size(644, 329);
             this.listViewBookings.TabIndex = 13;
             this.listViewBookings.TileSize = new System.Drawing.Size(2, 2);
             this.listViewBookings.UseCompatibleStateImageBehavior = false;
             this.listViewBookings.View = System.Windows.Forms.View.Details;
+            this.listViewBookings.SelectedIndexChanged += new System.EventHandler(this.listViewBookings_SelectedIndexChanged_1);
             // 
             // ID
             // 
@@ -303,22 +311,25 @@
             this.requests.Text = "Requests";
             this.requests.Width = 77;
             // 
-            // btnUpdate
+            // cmbRequests
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(146, 336);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdate.TabIndex = 47;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            this.cmbRequests.FormattingEnabled = true;
+            this.cmbRequests.Location = new System.Drawing.Point(146, 213);
+            this.cmbRequests.Name = "cmbRequests";
+            this.cmbRequests.Size = new System.Drawing.Size(121, 21);
+            this.cmbRequests.TabIndex = 48;
+            this.cmbRequests.SelectedIndexChanged += new System.EventHandler(this.cmbRequests_SelectedIndexChanged);
+            // 
+            // recurrence
+            // 
+            this.recurrence.Text = "Recurrence (if yes)";
             // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(917, 399);
+            this.ClientSize = new System.Drawing.Size(1030, 431);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "BookingForm";
@@ -337,7 +348,6 @@
         private System.Windows.Forms.Button btnAdd;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkRecurring;
-        private System.Windows.Forms.TextBox txtSpecialRequest;
         private System.Windows.Forms.TextBox txtFName;
         private System.Windows.Forms.TextBox txtLName;
         private System.Windows.Forms.DateTimePicker checkOutDate;
@@ -360,5 +370,7 @@
         private System.Windows.Forms.ColumnHeader checkOut;
         private System.Windows.Forms.ColumnHeader requests;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.ComboBox cmbRequests;
+        private System.Windows.Forms.ColumnHeader recurrence;
     }
 }

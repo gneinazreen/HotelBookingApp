@@ -31,7 +31,8 @@ namespace HotelBookingApp.Views
 
         private void btnRooms_Click(object sender, EventArgs e)
         {
-            RoomForm roomForm = new RoomForm();
+            BookingForm bookingForm = new BookingForm();
+            RoomForm roomForm = new RoomForm(bookingForm);
             roomForm.ShowDialog();
         }
 

@@ -16,6 +16,8 @@ namespace HotelBookingApp.Views.Booking
         public BookingForm()
         {
             InitializeComponent();
+            UpdateRoomTypes();
+            UpdateRequests();
             LoadBookings();
         }
 
@@ -27,11 +29,38 @@ namespace HotelBookingApp.Views.Booking
                 var item = new ListViewItem(b.BookingId.ToString());
                 item.SubItems.Add(b.FirstName);
                 item.SubItems.Add(b.LastName);
-                item.SubItems.Add(b.RoomType);
+                //item.SubItems.Add(b.RoomType);
+                var room = DataStorage.Rooms.FirstOrDefault(r => r.RoomId == b.RoomId);
+                string roomType = room?.RoomType ?? "Unknown";
+                item.SubItems.Add(roomType);
+
                 item.SubItems.Add(b.CheckInDate.ToShortDateString());
                 item.SubItems.Add(b.CheckOutDate.ToShortDateString());
-                item.SubItems.Add(b.SpecialRequests);
+                //item.SubItems.Add(b.SpecialRequests);
+
+                var request = DataStorage.Requests.FirstOrDefault(r => r.RequestId == b.RequestId);
+                string requestDesc = request?.Description ?? "Unknown";
+                item.SubItems.Add(requestDesc);
+
+                item.SubItems.Add(b.RecurrencePattern);
                 listViewBookings.Items.Add(item);
+            }
+        }
+
+        public void UpdateRoomTypes()
+        {
+            cmbRoomType.Items.Clear();
+            foreach (var room in DataStorage.Rooms)
+            {
+                cmbRoomType.Items.Add(room.RoomType);
+            }
+        }
+        public void UpdateRequests()
+        {
+            cmbRequests.Items.Clear();
+            foreach (var request in DataStorage.Requests)
+            {
+                cmbRequests.Items.Add(request.Description);
             }
         }
         private void LName_Click(object sender, EventArgs e)
@@ -56,10 +85,17 @@ namespace HotelBookingApp.Views.Booking
                 {
                     txtFName.Text = booking.FirstName;
                     txtLName.Text = booking.LastName;
-                    cmbRoomType.Text = booking.RoomType;
+                    //cmbRoomType.Text = booking.RoomType;
+
+                    var room = DataStorage.Rooms.FirstOrDefault(r=>r.RoomId == booking.RoomId);
+                    cmbRoomType.Text = room?.RoomType ?? "";
+
                     checkInDate.Value = booking.CheckInDate;
                     checkOutDate.Value = booking.CheckOutDate;
-                    txtSpecialRequest.Text = booking.SpecialRequests;
+                    //cmbRequests.Text = booking.SpecialRequests;
+
+                    var request = DataStorage.Requests.FirstOrDefault(r=>r.RequestId == booking.RequestId);
+                    cmbRequests.Text = request?.Description ?? "";
                     checkRecurring.Checked = booking.IsRecurring;
                     cmbRecPattern.Text = booking.RecurrencePattern;
                 }
@@ -68,14 +104,19 @@ namespace HotelBookingApp.Views.Booking
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            int roomId = DataStorage.Rooms.FirstOrDefault(r => r.RoomType == cmbRoomType.Text)?.RoomId ?? 0;
+            int requestId = DataStorage.Requests.FirstOrDefault(r => r.Description == cmbRequests.Text)?.RequestId ?? 0;
+
             var newBooking = new Models.Booking
             {
                 FirstName = txtFName.Text.Trim(),
                 LastName = txtLName.Text.Trim(),
-                RoomType = cmbRoomType.Text,
+                //RoomType = cmbRoomType.Text,
+                RoomId = roomId,
                 CheckInDate = checkInDate.Value.Date,
                 CheckOutDate = checkOutDate.Value.Date,
-                SpecialRequests = txtSpecialRequest.Text.Trim(),
+                RequestId = requestId,
+                //SpecialRequests = cmbRequests.Text.Trim(),
                 IsRecurring = checkRecurring.Checked,
                 RecurrencePattern = cmbRecPattern.Text
             };
@@ -92,7 +133,7 @@ namespace HotelBookingApp.Views.Booking
             cmbRoomType.SelectedIndex = -1;
             checkInDate.Value = DateTime.Today;
             checkOutDate.Value = DateTime.Today.AddDays(1);
-            txtSpecialRequest.Clear();
+            cmbRequests.SelectedIndex = -1;
             checkRecurring.Checked = false;
             cmbRecPattern.SelectedIndex = -1;
             listViewBookings.SelectedItems.Clear();
@@ -125,15 +166,23 @@ namespace HotelBookingApp.Views.Booking
                     string newFirst = txtFName.Text.Trim();
                     string newLast = txtLName.Text.Trim();
                     string newRoom = cmbRoomType.Text.Trim();
-                    string newReq = txtSpecialRequest.Text.Trim();
+                    string newReq = cmbRequests.Text.Trim();
                     string newRecPattern = cmbRecPattern.Text.Trim();
 
 
 
                     booking.FirstName = UpdateIfNoEmpty(booking.FirstName, newFirst);
                     booking.LastName = UpdateIfNoEmpty(booking.LastName, newLast);
-                    booking.RoomType = UpdateIfNoEmpty(booking.RoomType, newRoom);
-                    booking.SpecialRequests = UpdateIfNoEmpty(booking.SpecialRequests, newReq);
+                    //booking.RoomType = UpdateIfNoEmpty(booking.RoomType, newRoom);
+                    //booking.SpecialRequests = UpdateIfNoEmpty(booking.SpecialRequests, newReq);
+
+                    var newRoomObj = DataStorage.Rooms.FirstOrDefault(r => r.RoomType == newRoom);
+                    if (newRoomObj != null)
+                        booking.RoomId = newRoomObj.RoomId;
+
+                    var newReqObj = DataStorage.Requests.FirstOrDefault(r => r.Description == newReq);
+                    if (newReqObj != null)
+                        booking.RequestId = newReqObj.RequestId;
                     booking.IsRecurring = checkRecurring.Checked;
                     booking.RecurrencePattern = UpdateIfNoEmpty(booking.RecurrencePattern, newRecPattern);
                     
@@ -154,6 +203,20 @@ namespace HotelBookingApp.Views.Booking
         {
             return string.IsNullOrEmpty(newValue) ? original : newValue;
         }
-        
+
+        private void cmbRoomType_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbRequests_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listViewBookings_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

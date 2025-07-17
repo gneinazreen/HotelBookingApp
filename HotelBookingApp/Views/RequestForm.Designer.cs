@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
             this.category = new System.Windows.Forms.Label();
@@ -40,7 +41,6 @@
             this.requestID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.descriptionC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.categoryC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -54,14 +54,24 @@
             this.panel1.Controls.Add(this.description);
             this.panel1.Controls.Add(this.txtCategory);
             this.panel1.Controls.Add(this.txtDescription);
-            this.panel1.Location = new System.Drawing.Point(1, 0);
+            this.panel1.Location = new System.Drawing.Point(4, 106);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(338, 448);
+            this.panel1.Size = new System.Drawing.Size(283, 299);
             this.panel1.TabIndex = 0;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(96, 171);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 6;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(243, 217);
+            this.btnDelete.Location = new System.Drawing.Point(177, 171);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(75, 23);
             this.btnDelete.TabIndex = 5;
@@ -71,7 +81,7 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(33, 217);
+            this.btnAdd.Location = new System.Drawing.Point(15, 171);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(75, 23);
             this.btnAdd.TabIndex = 4;
@@ -82,7 +92,7 @@
             // category
             // 
             this.category.AutoSize = true;
-            this.category.Location = new System.Drawing.Point(48, 124);
+            this.category.Location = new System.Drawing.Point(30, 115);
             this.category.Name = "category";
             this.category.Size = new System.Drawing.Size(49, 13);
             this.category.TabIndex = 3;
@@ -91,7 +101,7 @@
             // description
             // 
             this.description.AutoSize = true;
-            this.description.Location = new System.Drawing.Point(48, 76);
+            this.description.Location = new System.Drawing.Point(30, 73);
             this.description.Name = "description";
             this.description.Size = new System.Drawing.Size(60, 13);
             this.description.TabIndex = 2;
@@ -99,14 +109,14 @@
             // 
             // txtCategory
             // 
-            this.txtCategory.Location = new System.Drawing.Point(177, 124);
+            this.txtCategory.Location = new System.Drawing.Point(133, 112);
             this.txtCategory.Name = "txtCategory";
             this.txtCategory.Size = new System.Drawing.Size(100, 20);
             this.txtCategory.TabIndex = 1;
             // 
             // txtDescription
             // 
-            this.txtDescription.Location = new System.Drawing.Point(177, 70);
+            this.txtDescription.Location = new System.Drawing.Point(133, 73);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(100, 20);
             this.txtDescription.TabIndex = 0;
@@ -114,9 +124,9 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.listViewRequests);
-            this.panel2.Location = new System.Drawing.Point(345, 0);
+            this.panel2.Location = new System.Drawing.Point(287, 106);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(455, 448);
+            this.panel2.Size = new System.Drawing.Size(409, 305);
             this.panel2.TabIndex = 1;
             // 
             // listViewRequests
@@ -128,12 +138,13 @@
             this.listViewRequests.FullRowSelect = true;
             this.listViewRequests.GridLines = true;
             this.listViewRequests.HideSelection = false;
-            this.listViewRequests.Location = new System.Drawing.Point(3, 3);
+            this.listViewRequests.Location = new System.Drawing.Point(1, 0);
             this.listViewRequests.Name = "listViewRequests";
-            this.listViewRequests.Size = new System.Drawing.Size(449, 445);
+            this.listViewRequests.Size = new System.Drawing.Size(405, 299);
             this.listViewRequests.TabIndex = 0;
             this.listViewRequests.UseCompatibleStateImageBehavior = false;
             this.listViewRequests.View = System.Windows.Forms.View.Details;
+            this.listViewRequests.SelectedIndexChanged += new System.EventHandler(this.listViewRequests_SelectedIndexChanged);
             // 
             // requestID
             // 
@@ -150,21 +161,11 @@
             this.categoryC.Text = "Category";
             this.categoryC.Width = 200;
             // 
-            // btnUpdate
-            // 
-            this.btnUpdate.Location = new System.Drawing.Point(140, 217);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btnUpdate.TabIndex = 6;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
-            // 
             // RequestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(695, 407);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "RequestForm";

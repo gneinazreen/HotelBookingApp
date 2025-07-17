@@ -24,12 +24,16 @@ namespace HotelBookingApp.Models
             {
                 FirstName = b.Element("FirstName")?.Value,
                 LastName = b.Element("LastName")?.Value,
-                RoomType = b.Element("RoomType")?.Value,
+                //RoomType = b.Element("RoomType")?.Value,
+                RoomId = int.Parse(b.Element("RoomId")?.Value ?? "0"),
                 CheckInDate = DateTime.Parse(b.Element("CheckInDate")?.Value),
                 CheckOutDate = DateTime.Parse(b.Element("CheckOutDate")?.Value),
-                SpecialRequests = "Loaded from XML",
-                IsRecurring = false,
-                RecurrencePattern = "None"
+                //SpecialRequests = "Loaded from XML",
+                //IsRecurring = false,
+                //RecurrencePattern = "None"
+                RequestId = int.Parse(b.Element("RequestId")?.Value ?? "0"),
+                IsRecurring = bool.TryParse(b.Element("IsRecurring")?.Value, out var recur) && recur,
+                RecurrencePattern = b.Element("RecurrencePattern")?.Value ?? "None"
             }).ToList();
 
             Bookings.AddRange(bookings);

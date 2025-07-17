@@ -27,10 +27,12 @@ namespace HotelBookingApp.Models
         public DateTime CheckOutDate { get; set; }
 
         [Required]
-        public string RoomType { get; set; }
+        //public string RoomType { get; set; }
+        public int RoomId { get; set; }
 
-        public string SpecialRequests { get; set; }
 
+        //public string SpecialRequests { get; set; }
+        public int RequestId { get; set; }
         public bool IsRecurring { get; set; }
 
         public string RecurrencePattern { get; set; }

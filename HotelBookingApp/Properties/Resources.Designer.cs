@@ -64,23 +64,21 @@ namespace HotelBookingApp.Properties {
         ///   Looks up a localized string similar to &lt;Data&gt;
         ///  &lt;Bookings&gt;
         ///    &lt;Booking&gt;
+        ///      &lt;BookingId&gt;1&lt;/BookingId&gt;
         ///      &lt;FirstName&gt;Anna&lt;/FirstName&gt;
         ///      &lt;LastName&gt;Smith&lt;/LastName&gt;
-        ///      &lt;RoomType&gt;Single&lt;/RoomType&gt;
+        ///      &lt;RoomId&gt;1&lt;/RoomId&gt;
         ///      &lt;CheckInDate&gt;2025-07-19&lt;/CheckInDate&gt;
         ///      &lt;CheckOutDate&gt;2025-07-21&lt;/CheckOutDate&gt;
+        ///      &lt;RequestId&gt;1&lt;/RequestId&gt;
+        ///      &lt;IsRecurring&gt;false&lt;/IsRecurring&gt;
+        ///      &lt;RecurrencePattern&gt;None&lt;/RecurrencePattern&gt;
         ///    &lt;/Booking&gt;
         ///    &lt;Booking&gt;
+        ///      &lt;BookingId&gt;2&lt;/BookingId&gt;
         ///      &lt;FirstName&gt;David&lt;/FirstName&gt;
         ///      &lt;LastName&gt;Lee&lt;/LastName&gt;
-        ///      &lt;RoomType&gt;Double&lt;/RoomType&gt;
-        ///      &lt;CheckInDate&gt;2025-07-20&lt;/CheckInDate&gt;
-        ///      &lt;CheckOutDate&gt;2025-07-22&lt;/CheckOutDate&gt;
-        ///    &lt;/Booking&gt;
-        ///  &lt;/Bookings&gt;
-        ///
-        ///  &lt;Rooms&gt;
-        ///    &lt;Room [rest of string was truncated]&quot;;.
+        ///   [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string InitialBookingsXML {
             get {

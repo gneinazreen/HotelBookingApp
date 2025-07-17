@@ -37,7 +37,7 @@
             // 
             // btnBookings
             // 
-            this.btnBookings.Location = new System.Drawing.Point(51, 57);
+            this.btnBookings.Location = new System.Drawing.Point(49, 133);
             this.btnBookings.Name = "btnBookings";
             this.btnBookings.Size = new System.Drawing.Size(116, 45);
             this.btnBookings.TabIndex = 0;
@@ -47,7 +47,7 @@
             // 
             // btnRooms
             // 
-            this.btnRooms.Location = new System.Drawing.Point(189, 57);
+            this.btnRooms.Location = new System.Drawing.Point(196, 131);
             this.btnRooms.Name = "btnRooms";
             this.btnRooms.Size = new System.Drawing.Size(96, 45);
             this.btnRooms.TabIndex = 1;
@@ -57,9 +57,9 @@
             // 
             // btnRequests
             // 
-            this.btnRequests.Location = new System.Drawing.Point(314, 61);
+            this.btnRequests.Location = new System.Drawing.Point(314, 131);
             this.btnRequests.Name = "btnRequests";
-            this.btnRequests.Size = new System.Drawing.Size(106, 41);
+            this.btnRequests.Size = new System.Drawing.Size(118, 47);
             this.btnRequests.TabIndex = 2;
             this.btnRequests.Text = "Manage Requests";
             this.btnRequests.UseVisualStyleBackColor = true;
@@ -67,7 +67,7 @@
             // 
             // btnReports
             // 
-            this.btnReports.Location = new System.Drawing.Point(95, 128);
+            this.btnReports.Location = new System.Drawing.Point(102, 203);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(106, 41);
             this.btnReports.TabIndex = 2;
@@ -77,9 +77,9 @@
             // 
             // btnChatbot
             // 
-            this.btnChatbot.Location = new System.Drawing.Point(230, 128);
+            this.btnChatbot.Location = new System.Drawing.Point(243, 203);
             this.btnChatbot.Name = "btnChatbot";
-            this.btnChatbot.Size = new System.Drawing.Size(106, 41);
+            this.btnChatbot.Size = new System.Drawing.Size(100, 41);
             this.btnChatbot.TabIndex = 2;
             this.btnChatbot.Text = "Chatbot";
             this.btnChatbot.UseVisualStyleBackColor = true;
