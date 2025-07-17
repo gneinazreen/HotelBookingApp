@@ -212,6 +212,9 @@
     <EmbeddedResource Include="Views\BookingForm.resx">
       <DependentUpon>BookingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ChatbotForm.resx">
+      <DependentUpon>ChatbotForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Main.resx">
       <DependentUpon>Main.cs</DependentUpon>
     </EmbeddedResource>
