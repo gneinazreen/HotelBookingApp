@@ -29,23 +29,25 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnDelete = new System.Windows.Forms.Button();
+            this.btnAdd = new System.Windows.Forms.Button();
+            this.basePrice = new System.Windows.Forms.Label();
+            this.roomType = new System.Windows.Forms.Label();
+            this.txtBasePrice = new System.Windows.Forms.TextBox();
             this.txtRoomType = new System.Windows.Forms.TextBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.listViewRooms = new System.Windows.Forms.ListView();
-            this.roomType = new System.Windows.Forms.Label();
-            this.txtBasePrice = new System.Windows.Forms.TextBox();
-            this.basePrice = new System.Windows.Forms.Label();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnDelete = new System.Windows.Forms.Button();
             this.roomID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.roomTypeC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.basePriceC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnUpdate = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnAdd);
             this.panel1.Controls.Add(this.basePrice);
@@ -56,6 +58,51 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(360, 451);
             this.panel1.TabIndex = 0;
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(261, 234);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.TabIndex = 3;
+            this.btnDelete.Text = "Delete";
+            this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(54, 234);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.TabIndex = 2;
+            this.btnAdd.Text = "Add";
+            this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // basePrice
+            // 
+            this.basePrice.AutoSize = true;
+            this.basePrice.Location = new System.Drawing.Point(34, 117);
+            this.basePrice.Name = "basePrice";
+            this.basePrice.Size = new System.Drawing.Size(58, 13);
+            this.basePrice.TabIndex = 1;
+            this.basePrice.Text = "Base Price";
+            // 
+            // roomType
+            // 
+            this.roomType.AutoSize = true;
+            this.roomType.Location = new System.Drawing.Point(34, 68);
+            this.roomType.Name = "roomType";
+            this.roomType.Size = new System.Drawing.Size(62, 13);
+            this.roomType.TabIndex = 1;
+            this.roomType.Text = "Room Type";
+            // 
+            // txtBasePrice
+            // 
+            this.txtBasePrice.Location = new System.Drawing.Point(183, 117);
+            this.txtBasePrice.Name = "txtBasePrice";
+            this.txtBasePrice.Size = new System.Drawing.Size(135, 20);
+            this.txtBasePrice.TabIndex = 0;
             // 
             // txtRoomType
             // 
@@ -89,51 +136,6 @@
             this.listViewRooms.UseCompatibleStateImageBehavior = false;
             this.listViewRooms.View = System.Windows.Forms.View.Details;
             // 
-            // roomType
-            // 
-            this.roomType.AutoSize = true;
-            this.roomType.Location = new System.Drawing.Point(34, 68);
-            this.roomType.Name = "roomType";
-            this.roomType.Size = new System.Drawing.Size(62, 13);
-            this.roomType.TabIndex = 1;
-            this.roomType.Text = "Room Type";
-            // 
-            // txtBasePrice
-            // 
-            this.txtBasePrice.Location = new System.Drawing.Point(183, 117);
-            this.txtBasePrice.Name = "txtBasePrice";
-            this.txtBasePrice.Size = new System.Drawing.Size(135, 20);
-            this.txtBasePrice.TabIndex = 0;
-            // 
-            // basePrice
-            // 
-            this.basePrice.AutoSize = true;
-            this.basePrice.Location = new System.Drawing.Point(34, 117);
-            this.basePrice.Name = "basePrice";
-            this.basePrice.Size = new System.Drawing.Size(58, 13);
-            this.basePrice.TabIndex = 1;
-            this.basePrice.Text = "Base Price";
-            // 
-            // btnAdd
-            // 
-            this.btnAdd.Location = new System.Drawing.Point(37, 164);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
-            this.btnAdd.TabIndex = 2;
-            this.btnAdd.Text = "Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
-            // 
-            // btnDelete
-            // 
-            this.btnDelete.Location = new System.Drawing.Point(165, 164);
-            this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
-            this.btnDelete.TabIndex = 3;
-            this.btnDelete.Text = "Delete";
-            this.btnDelete.UseVisualStyleBackColor = true;
-            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
-            // 
             // roomID
             // 
             this.roomID.Text = "Room ID";
@@ -145,6 +147,16 @@
             // basePriceC
             // 
             this.basePriceC.Text = "Base Price";
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(169, 234);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdate.TabIndex = 4;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // RoomForm
             // 
@@ -176,5 +188,6 @@
         private System.Windows.Forms.ColumnHeader roomID;
         private System.Windows.Forms.ColumnHeader roomTypeC;
         private System.Windows.Forms.ColumnHeader basePriceC;
+        private System.Windows.Forms.Button btnUpdate;
     }
 }

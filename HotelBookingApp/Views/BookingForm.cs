@@ -47,7 +47,23 @@ namespace HotelBookingApp.Views.Booking
 
         private void listViewBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if(listViewBookings.SelectedItems.Count > 0)
+            {
+                int id = int.Parse(listViewBookings.SelectedItems[0].Text);
+                var booking = DataStorage.Bookings.Find(b => b.BookingId == id);
 
+                if(booking != null)
+                {
+                    txtFName.Text = booking.FirstName;
+                    txtLName.Text = booking.LastName;
+                    cmbRoomType.Text = booking.RoomType;
+                    checkInDate.Value = booking.CheckInDate;
+                    checkOutDate.Value = booking.CheckOutDate;
+                    txtSpecialRequest.Text = booking.SpecialRequests;
+                    checkRecurring.Checked = booking.IsRecurring;
+                    cmbRecPattern.Text = booking.RecurrencePattern;
+                }
+            }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -79,6 +95,7 @@ namespace HotelBookingApp.Views.Booking
             txtSpecialRequest.Clear();
             checkRecurring.Checked = false;
             cmbRecPattern.SelectedIndex = -1;
+            listViewBookings.SelectedItems.Clear();
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -95,5 +112,48 @@ namespace HotelBookingApp.Views.Booking
         {
 
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (listViewBookings.SelectedItems.Count > 0)
+            {
+                int id = int.Parse(listViewBookings.SelectedItems[0].Text);
+                var booking = DataStorage.Bookings.Find(b => b.BookingId == id);
+
+                if (booking != null)
+                {
+                    string newFirst = txtFName.Text.Trim();
+                    string newLast = txtLName.Text.Trim();
+                    string newRoom = cmbRoomType.Text.Trim();
+                    string newReq = txtSpecialRequest.Text.Trim();
+                    string newRecPattern = cmbRecPattern.Text.Trim();
+
+
+
+                    booking.FirstName = UpdateIfNoEmpty(booking.FirstName, newFirst);
+                    booking.LastName = UpdateIfNoEmpty(booking.LastName, newLast);
+                    booking.RoomType = UpdateIfNoEmpty(booking.RoomType, newRoom);
+                    booking.SpecialRequests = UpdateIfNoEmpty(booking.SpecialRequests, newReq);
+                    booking.IsRecurring = checkRecurring.Checked;
+                    booking.RecurrencePattern = UpdateIfNoEmpty(booking.RecurrencePattern, newRecPattern);
+                    
+                    DateTime? newCheckIn = checkInDate.Value != DateTime.Today ? checkInDate.Value.Date : (DateTime?)null;
+                    DateTime? newCheckOut = checkOutDate.Value != DateTime.Today ? checkOutDate.Value.Date: (DateTime?)null;
+
+                    if(newCheckIn.HasValue)
+                        booking.CheckInDate = newCheckIn.Value;
+                    if(newCheckOut.HasValue)
+                        booking.CheckOutDate = newCheckOut.Value;
+                    LoadBookings();
+                    ClearFields();
+
+                }
+            }
+        }
+        private string UpdateIfNoEmpty(string original, string newValue)
+        {
+            return string.IsNullOrEmpty(newValue) ? original : newValue;
+        }
+        
     }
 }

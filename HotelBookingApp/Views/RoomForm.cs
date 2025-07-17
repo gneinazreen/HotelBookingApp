@@ -56,5 +56,30 @@ namespace HotelBookingApp.Views
                 LoadRooms();
             }
         }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (listViewRooms.SelectedItems.Count > 0)
+            {
+                int id = int.Parse(listViewRooms.SelectedItems[0].Text);
+                var room = DataStorage.Rooms.Find(r => r.RoomId == id);
+
+                if (room != null)
+                {
+                    room.RoomType = txtRoomType.Text;
+                    room.BasePrice = float.TryParse(txtBasePrice.Text, out float price) ? price : 0f;
+
+                    LoadRooms();
+                    ClearFields();
+
+                }
+            }
+        }
+        private void ClearFields()
+        {
+            txtRoomType.Clear();
+            txtBasePrice.Clear();
+            listViewRooms.SelectedItems.Clear();
+        }
     }
 }
