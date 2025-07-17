@@ -41,6 +41,8 @@
             this.requestID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.descriptionC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.categoryC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -161,19 +163,42 @@
             this.categoryC.Text = "Category";
             this.categoryC.Width = 200;
             // 
+            // navigationMenu1
+            // 
+            this.navigationMenu1.Location = new System.Drawing.Point(4, 1);
+            this.navigationMenu1.Name = "navigationMenu1";
+            this.navigationMenu1.Size = new System.Drawing.Size(689, 29);
+            this.navigationMenu1.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label4.Location = new System.Drawing.Point(212, 51);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(313, 24);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Manage Special Guest Requests";
+            // 
             // RequestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(695, 407);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "RequestForm";
             this.Text = "RequestForm";
+            this.Load += new System.EventHandler(this.RequestForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -192,5 +217,7 @@
         private System.Windows.Forms.ColumnHeader descriptionC;
         private System.Windows.Forms.ColumnHeader categoryC;
         private System.Windows.Forms.Button btnUpdate;
+        private NavigationMenu navigationMenu1;
+        private System.Windows.Forms.Label label4;
     }
 }

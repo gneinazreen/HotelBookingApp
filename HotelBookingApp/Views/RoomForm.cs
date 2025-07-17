@@ -18,6 +18,7 @@ namespace HotelBookingApp.Views
         public RoomForm(BookingForm bookingForm)
         {
             InitializeComponent();
+            this.Name = "RoomForm";
             formBooking = bookingForm;
             LoadRooms();
         }
@@ -108,6 +109,11 @@ namespace HotelBookingApp.Views
                     txtBasePrice.Text = room.BasePrice.ToString("F2");
                 }
             }
+        }
+
+        private void RoomForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

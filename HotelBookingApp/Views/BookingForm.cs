@@ -16,9 +16,15 @@ namespace HotelBookingApp.Views.Booking
         public BookingForm()
         {
             InitializeComponent();
+
+            this.Name = "BookingForm";
             UpdateRoomTypes();
             UpdateRequests();
             LoadBookings();
+            //var nav = new NavigationMenu();
+            //nav.Dock = DockStyle.Top;
+            //this.Controls.Add(nav);
+            //this.Controls.SetChildIndex(nav, 0);
         }
 
         private void LoadBookings()
@@ -215,6 +221,19 @@ namespace HotelBookingApp.Views.Booking
         }
 
         private void listViewBookings_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+            //var nav = new NavigationMenu();
+            //nav.Dock = DockStyle.Top;
+            //this.Controls.Add(nav);
+            //this.Controls.SetChildIndex(nav, 0);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
         {
 
         }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cmbRequests = new System.Windows.Forms.ComboBox();
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
@@ -55,8 +56,9 @@
             this.checkIn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkOut = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.requests = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.cmbRequests = new System.Windows.Forms.ComboBox();
             this.recurrence = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -85,6 +87,15 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(377, 329);
             this.panel1.TabIndex = 13;
+            // 
+            // cmbRequests
+            // 
+            this.cmbRequests.FormattingEnabled = true;
+            this.cmbRequests.Location = new System.Drawing.Point(146, 213);
+            this.cmbRequests.Name = "cmbRequests";
+            this.cmbRequests.Size = new System.Drawing.Size(121, 21);
+            this.cmbRequests.TabIndex = 48;
+            this.cmbRequests.SelectedIndexChanged += new System.EventHandler(this.cmbRequests_SelectedIndexChanged);
             // 
             // btnUpdate
             // 
@@ -311,25 +322,38 @@
             this.requests.Text = "Requests";
             this.requests.Width = 77;
             // 
-            // cmbRequests
-            // 
-            this.cmbRequests.FormattingEnabled = true;
-            this.cmbRequests.Location = new System.Drawing.Point(146, 213);
-            this.cmbRequests.Name = "cmbRequests";
-            this.cmbRequests.Size = new System.Drawing.Size(121, 21);
-            this.cmbRequests.TabIndex = 48;
-            this.cmbRequests.SelectedIndexChanged += new System.EventHandler(this.cmbRequests_SelectedIndexChanged);
-            // 
             // recurrence
             // 
             this.recurrence.Text = "Recurrence (if yes)";
+            // 
+            // navigationMenu1
+            // 
+            this.navigationMenu1.Location = new System.Drawing.Point(1, 0);
+            this.navigationMenu1.Name = "navigationMenu1";
+            this.navigationMenu1.Size = new System.Drawing.Size(1027, 29);
+            this.navigationMenu1.TabIndex = 15;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label4.Location = new System.Drawing.Point(335, 50);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(134, 24);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Book A Stay !";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1030, 431);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "BookingForm";
@@ -339,6 +363,7 @@
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -372,5 +397,7 @@
         private System.Windows.Forms.Button btnUpdate;
         private System.Windows.Forms.ComboBox cmbRequests;
         private System.Windows.Forms.ColumnHeader recurrence;
+        private NavigationMenu navigationMenu1;
+        private System.Windows.Forms.Label label4;
     }
 }

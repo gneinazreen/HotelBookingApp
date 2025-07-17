@@ -31,10 +31,12 @@
             this.txtResponse = new System.Windows.Forms.RichTextBox();
             this.btnAsk = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.txtQuestion = new System.Windows.Forms.RichTextBox();
-            this.lblQuestion = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.lblQuestion = new System.Windows.Forms.Label();
+            this.txtQuestion = new System.Windows.Forms.RichTextBox();
+            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -66,6 +68,15 @@
             this.panel1.Size = new System.Drawing.Size(297, 363);
             this.panel1.TabIndex = 3;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(106, 34);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Response Recieved";
+            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.lblQuestion);
@@ -74,14 +85,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(245, 363);
             this.panel2.TabIndex = 4;
-            // 
-            // txtQuestion
-            // 
-            this.txtQuestion.Location = new System.Drawing.Point(0, 69);
-            this.txtQuestion.Name = "txtQuestion";
-            this.txtQuestion.Size = new System.Drawing.Size(242, 291);
-            this.txtQuestion.TabIndex = 0;
-            this.txtQuestion.Text = "";
             // 
             // lblQuestion
             // 
@@ -92,20 +95,40 @@
             this.lblQuestion.TabIndex = 1;
             this.lblQuestion.Text = "Ask Anything!";
             // 
-            // label1
+            // txtQuestion
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 34);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Response Recieved";
+            this.txtQuestion.Location = new System.Drawing.Point(0, 69);
+            this.txtQuestion.Name = "txtQuestion";
+            this.txtQuestion.Size = new System.Drawing.Size(242, 291);
+            this.txtQuestion.TabIndex = 0;
+            this.txtQuestion.Text = "";
+            // 
+            // navigationMenu1
+            // 
+            this.navigationMenu1.Location = new System.Drawing.Point(0, -1);
+            this.navigationMenu1.Name = "navigationMenu1";
+            this.navigationMenu1.Size = new System.Drawing.Size(629, 26);
+            this.navigationMenu1.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label4.Location = new System.Drawing.Point(247, 45);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(173, 24);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Ask Me Anything!";
             // 
             // ChatbotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(630, 464);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnAsk);
@@ -117,6 +140,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -129,5 +153,7 @@
         private System.Windows.Forms.RichTextBox txtQuestion;
         private System.Windows.Forms.Label lblQuestion;
         private System.Windows.Forms.Label label1;
+        private NavigationMenu navigationMenu1;
+        private System.Windows.Forms.Label label4;
     }
 }

@@ -21,6 +21,7 @@ namespace HotelBookingApp.Views
         public ReportForm()
         {
             InitializeComponent();
+            this.Name = "ReportForm";
             LoadWeeklyReport();
         }
         private List<ReportEntry> weeklyEntries = new List<ReportEntry>();

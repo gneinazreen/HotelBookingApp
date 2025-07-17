@@ -155,6 +155,12 @@
     <Compile Include="Models\DataStorage.cs" />
     <Compile Include="Models\Room.cs" />
     <Compile Include="Models\SpecialRequest.cs" />
+    <Compile Include="NavigationMenu.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NavigationMenu.Designer.cs">
+      <DependentUpon>NavigationMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\BookingForm.cs">
@@ -199,6 +205,9 @@
     <Compile Include="Views\RoomForm.Designer.cs">
       <DependentUpon>RoomForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="NavigationMenu.resx">
+      <DependentUpon>NavigationMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

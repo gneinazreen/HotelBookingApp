@@ -35,6 +35,8 @@
             this.request = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnExportCSV = new System.Windows.Forms.Button();
             this.btnExportPDF = new System.Windows.Forms.Button();
+            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listViewReport
@@ -91,11 +93,32 @@
             this.btnExportPDF.UseVisualStyleBackColor = true;
             this.btnExportPDF.Click += new System.EventHandler(this.btnExportPDF_Click);
             // 
+            // navigationMenu1
+            // 
+            this.navigationMenu1.Location = new System.Drawing.Point(0, 0);
+            this.navigationMenu1.Name = "navigationMenu1";
+            this.navigationMenu1.Size = new System.Drawing.Size(516, 28);
+            this.navigationMenu1.TabIndex = 3;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label4.Location = new System.Drawing.Point(93, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(347, 24);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Weekly Summary and Export Center";
+            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(516, 413);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.btnExportPDF);
             this.Controls.Add(this.btnExportCSV);
             this.Controls.Add(this.listViewReport);
@@ -103,6 +126,7 @@
             this.Text = "ReportForm";
             this.Load += new System.EventHandler(this.ReportForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -115,5 +139,7 @@
         private System.Windows.Forms.ColumnHeader guest;
         private System.Windows.Forms.ColumnHeader roomType;
         private System.Windows.Forms.ColumnHeader request;
+        private NavigationMenu navigationMenu1;
+        private System.Windows.Forms.Label label4;
     }
 }

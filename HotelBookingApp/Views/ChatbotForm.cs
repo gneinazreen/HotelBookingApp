@@ -16,6 +16,7 @@ namespace HotelBookingApp.Views
         public ChatbotForm()
         {
             InitializeComponent();
+            this.Name = "ChatbotForm";
         }
 
         private void ChatbotForm_Load(object sender, EventArgs e)
@@ -67,6 +68,16 @@ namespace HotelBookingApp.Views
                 return $"The busiest day is likely: {busiestDay}";
             }
             return "Try Asking about availability, price or buisest day.";
+        }
+
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void manageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -16,6 +16,7 @@ namespace HotelBookingApp.Views
         public RequestForm()
         {
             InitializeComponent();
+            this.Name = "RequestForm";
             LoadRequests();
         }
         private void LoadRequests()
@@ -84,6 +85,11 @@ namespace HotelBookingApp.Views
         }
 
         private void listViewRequests_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RequestForm_Load(object sender, EventArgs e)
         {
 
         }

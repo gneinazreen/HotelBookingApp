@@ -53,5 +53,10 @@ namespace HotelBookingApp.Views
             ChatbotForm chatbotForm = new ChatbotForm();
             chatbotForm.ShowDialog();
         }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

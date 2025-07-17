@@ -41,6 +41,8 @@
             this.roomID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.roomTypeC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.basePriceC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -54,9 +56,9 @@
             this.panel1.Controls.Add(this.roomType);
             this.panel1.Controls.Add(this.txtBasePrice);
             this.panel1.Controls.Add(this.txtRoomType);
-            this.panel1.Location = new System.Drawing.Point(0, 122);
+            this.panel1.Location = new System.Drawing.Point(0, 99);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(316, 257);
+            this.panel1.Size = new System.Drawing.Size(321, 257);
             this.panel1.TabIndex = 0;
             // 
             // btnUpdate
@@ -125,7 +127,7 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.listViewRooms);
-            this.panel2.Location = new System.Drawing.Point(314, 122);
+            this.panel2.Location = new System.Drawing.Point(322, 99);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(402, 257);
             this.panel2.TabIndex = 1;
@@ -139,7 +141,7 @@
             this.listViewRooms.FullRowSelect = true;
             this.listViewRooms.GridLines = true;
             this.listViewRooms.HideSelection = false;
-            this.listViewRooms.Location = new System.Drawing.Point(3, 3);
+            this.listViewRooms.Location = new System.Drawing.Point(0, 0);
             this.listViewRooms.Name = "listViewRooms";
             this.listViewRooms.Size = new System.Drawing.Size(394, 254);
             this.listViewRooms.TabIndex = 0;
@@ -159,19 +161,42 @@
             // 
             this.basePriceC.Text = "Base Price";
             // 
+            // navigationMenu1
+            // 
+            this.navigationMenu1.Location = new System.Drawing.Point(0, -2);
+            this.navigationMenu1.Name = "navigationMenu1";
+            this.navigationMenu1.Size = new System.Drawing.Size(711, 28);
+            this.navigationMenu1.TabIndex = 2;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.MidnightBlue;
+            this.label4.Location = new System.Drawing.Point(276, 52);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(230, 24);
+            this.label4.TabIndex = 17;
+            this.label4.Text = "Room Setup and Prices";
+            // 
             // RoomForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 382);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(712, 360);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "RoomForm";
             this.Text = "RoomForm";
+            this.Load += new System.EventHandler(this.RoomForm_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -190,5 +215,7 @@
         private System.Windows.Forms.ColumnHeader roomTypeC;
         private System.Windows.Forms.ColumnHeader basePriceC;
         private System.Windows.Forms.Button btnUpdate;
+        private NavigationMenu navigationMenu1;
+        private System.Windows.Forms.Label label4;
     }
 }
