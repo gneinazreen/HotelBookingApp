@@ -19,6 +19,7 @@ namespace HotelBookingApp
             Application.SetCompatibleTextRenderingDefault(false);
             HotelBookingApp.Models.DataStorage.Initialize();
             Application.Run(new Main());
+            //Application.Run(new pdftest());
         }
     }
 }
