@@ -22,6 +22,7 @@ namespace HotelBookingApp.Models
             // Load Bookings
             var bookings = doc.Descendants("Booking").Select(b => new Booking
             {
+                BookingId = int.Parse(b.Element("BookingId")?.Value ?? "0"),
                 FirstName = b.Element("FirstName")?.Value,
                 LastName = b.Element("LastName")?.Value,
                 //RoomType = b.Element("RoomType")?.Value,

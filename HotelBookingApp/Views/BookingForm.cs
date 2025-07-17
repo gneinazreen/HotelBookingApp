@@ -25,6 +25,13 @@ namespace HotelBookingApp.Views.Booking
             //nav.Dock = DockStyle.Top;
             //this.Controls.Add(nav);
             //this.Controls.SetChildIndex(nav, 0);
+            checkRecurring.CheckedChanged += (s, e) =>
+            {
+                lblRecurrence.Visible = checkRecurring.Checked;
+                cmbRecPattern.Visible = checkRecurring.Checked;
+            };
+            cmbRecPattern.Visible = false;
+            lblRecurrence.Visible = false;
         }
 
         private void LoadBookings()
@@ -79,6 +86,10 @@ namespace HotelBookingApp.Views.Booking
         {
 
         }
+        private void listViewBookings_ItemCheck(object sender, ItemCheckEventArgs e)
+        {
+            listViewBookings.Items[e.Index].Selected = true;
+        }
 
         private void listViewBookings_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -108,23 +119,36 @@ namespace HotelBookingApp.Views.Booking
             }
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private void btnAdd_Click_1(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(txtFName.Text) ||
+                string.IsNullOrWhiteSpace(txtLName.Text) ||
+                cmbRoomType.SelectedIndex == -1 ||
+                cmbRequests.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please fill in all required fields.");
+                return;
+            }
+
             int roomId = DataStorage.Rooms.FirstOrDefault(r => r.RoomType == cmbRoomType.Text)?.RoomId ?? 0;
             int requestId = DataStorage.Requests.FirstOrDefault(r => r.Description == cmbRequests.Text)?.RequestId ?? 0;
+
+            if (roomId == 0 || requestId == 0)
+            {
+                MessageBox.Show("Invalid Room or Request selection.");
+                return;
+            }
 
             var newBooking = new Models.Booking
             {
                 FirstName = txtFName.Text.Trim(),
                 LastName = txtLName.Text.Trim(),
-                //RoomType = cmbRoomType.Text,
                 RoomId = roomId,
+                RequestId = requestId,
                 CheckInDate = checkInDate.Value.Date,
                 CheckOutDate = checkOutDate.Value.Date,
-                RequestId = requestId,
-                //SpecialRequests = cmbRequests.Text.Trim(),
                 IsRecurring = checkRecurring.Checked,
-                RecurrencePattern = cmbRecPattern.Text
+                RecurrencePattern = checkRecurring.Checked ? cmbRecPattern.Text : "None"
             };
 
             DataStorage.AddBooking(newBooking);
@@ -145,15 +169,15 @@ namespace HotelBookingApp.Views.Booking
             listViewBookings.SelectedItems.Clear();
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            if (listViewBookings.SelectedItems.Count > 0)
-            {
-                int id = int.Parse(listViewBookings.SelectedItems[0].Text);
-                DataStorage.DeleteBooking(id);
-                LoadBookings();
-            }
-        }
+        //private void btnAdd_Click_1(object sender, EventArgs e)
+        //{
+        //    if (listViewBookings.SelectedItems.Count > 0)
+        //    {
+        //        int id = int.Parse(listViewBookings.SelectedItems[0].Text);
+        //        DataStorage.DeleteBooking(id);
+        //        LoadBookings();
+        //    }
+        //}
 
         private void FName_Click(object sender, EventArgs e)
         {
@@ -236,6 +260,38 @@ namespace HotelBookingApp.Views.Booking
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkRecurring_CheckedChanged(object sender, EventArgs e)
+        {
+            bool isChecked = checkRecurring.Checked;
+            cmbRecPattern.Visible = isChecked;
+            lblRecurrence.Visible = isChecked;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (listViewBookings.SelectedItems.Count > 0)
+            {
+                int id = int.Parse(listViewBookings.SelectedItems[0].Text);
+                var booking = DataStorage.Bookings.FirstOrDefault(b => b.BookingId == id);
+                if (booking != null)
+                {
+                    var confirm = MessageBox.Show($"Are you sure you want to delete booking for {booking.FirstName} {booking.LastName}?",
+                                                  "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (confirm == DialogResult.Yes)
+                    {
+                        DataStorage.DeleteBooking(id);
+                        LoadBookings();
+                        ClearFields();
+                        MessageBox.Show("Booking deleted successfully.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a booking to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

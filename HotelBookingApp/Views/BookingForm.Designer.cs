@@ -33,7 +33,7 @@
             this.btnUpdate = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
             this.btnAdd = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
+            this.lblRecurrence = new System.Windows.Forms.Label();
             this.checkRecurring = new System.Windows.Forms.CheckBox();
             this.txtFName = new System.Windows.Forms.TextBox();
             this.txtLName = new System.Windows.Forms.TextBox();
@@ -69,7 +69,7 @@
             this.panel1.Controls.Add(this.btnUpdate);
             this.panel1.Controls.Add(this.btnDelete);
             this.panel1.Controls.Add(this.btnAdd);
-            this.panel1.Controls.Add(this.label3);
+            this.panel1.Controls.Add(this.lblRecurrence);
             this.panel1.Controls.Add(this.checkRecurring);
             this.panel1.Controls.Add(this.txtFName);
             this.panel1.Controls.Add(this.txtLName);
@@ -115,6 +115,7 @@
             this.btnDelete.TabIndex = 46;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnAdd
             // 
@@ -124,15 +125,16 @@
             this.btnAdd.TabIndex = 45;
             this.btnAdd.Text = "Add";
             this.btnAdd.UseVisualStyleBackColor = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click_1);
             // 
-            // label3
+            // lblRecurrence
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(121, 254);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(100, 13);
-            this.label3.TabIndex = 44;
-            this.label3.Text = "Recurrence Pattern";
+            this.lblRecurrence.AutoSize = true;
+            this.lblRecurrence.Location = new System.Drawing.Point(121, 254);
+            this.lblRecurrence.Name = "lblRecurrence";
+            this.lblRecurrence.Size = new System.Drawing.Size(100, 13);
+            this.lblRecurrence.TabIndex = 44;
+            this.lblRecurrence.Text = "Recurrence Pattern";
             // 
             // checkRecurring
             // 
@@ -143,6 +145,7 @@
             this.checkRecurring.TabIndex = 43;
             this.checkRecurring.Text = "Recurring";
             this.checkRecurring.UseVisualStyleBackColor = true;
+            this.checkRecurring.CheckedChanged += new System.EventHandler(this.checkRecurring_CheckedChanged);
             // 
             // txtFName
             // 
@@ -285,6 +288,7 @@
             this.listViewBookings.TileSize = new System.Drawing.Size(2, 2);
             this.listViewBookings.UseCompatibleStateImageBehavior = false;
             this.listViewBookings.View = System.Windows.Forms.View.Details;
+            this.listViewBookings.ItemCheck += new System.Windows.Forms.ItemCheckEventHandler(this.listViewBookings_ItemCheck);
             this.listViewBookings.SelectedIndexChanged += new System.EventHandler(this.listViewBookings_SelectedIndexChanged_1);
             // 
             // ID
@@ -325,6 +329,7 @@
             // recurrence
             // 
             this.recurrence.Text = "Recurrence (if yes)";
+            this.recurrence.Width = 111;
             // 
             // navigationMenu1
             // 
@@ -371,7 +376,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnDelete;
         private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label lblRecurrence;
         private System.Windows.Forms.CheckBox checkRecurring;
         private System.Windows.Forms.TextBox txtFName;
         private System.Windows.Forms.TextBox txtLName;
