@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HotelBookingApp.Validators;
 
 namespace HotelBookingApp.Views.Booking
 {
@@ -84,7 +85,9 @@ namespace HotelBookingApp.Views.Booking
 
         private void BookingForm_Load(object sender, EventArgs e)
         {
-
+            // Disable past dates
+            checkInDate.MinDate = DateTime.Today;
+            checkOutDate.MinDate = DateTime.Today.AddDays(1);
         }
         private void listViewBookings_ItemCheck(object sender, ItemCheckEventArgs e)
         {
@@ -121,24 +124,30 @@ namespace HotelBookingApp.Views.Booking
 
         private void btnAdd_Click_1(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFName.Text) ||
-                string.IsNullOrWhiteSpace(txtLName.Text) ||
-                cmbRoomType.SelectedIndex == -1 ||
-                cmbRequests.SelectedIndex == -1)
-            {
-                MessageBox.Show("Please fill in all required fields.");
-                return;
-            }
+            //if (string.IsNullOrWhiteSpace(txtFName.Text) ||
+            //    string.IsNullOrWhiteSpace(txtLName.Text) ||
+            //    cmbRoomType.SelectedIndex == -1)
+            //{
+            //    MessageBox.Show("Please fill in all required fields.");
+            //    return;
+            //}
 
             int roomId = DataStorage.Rooms.FirstOrDefault(r => r.RoomType == cmbRoomType.Text)?.RoomId ?? 0;
             int requestId = DataStorage.Requests.FirstOrDefault(r => r.Description == cmbRequests.Text)?.RequestId ?? 0;
 
-            if (roomId == 0 || requestId == 0)
+            var errors = BookingValidator.ValidateBooking(
+                txtFName.Text.Trim(),
+                txtLName.Text.Trim(),
+                cmbRoomType.Text.Trim(),
+                cmbRequests.Text.Trim(),
+                checkInDate.Value.Date,
+                checkOutDate.Value.Date
+            );
+            if (errors.Any())
             {
-                MessageBox.Show("Invalid Room or Request selection.");
+                MessageBox.Show(string.Join("\n", errors), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-
             var newBooking = new Models.Booking
             {
                 FirstName = txtFName.Text.Trim(),
@@ -292,6 +301,11 @@ namespace HotelBookingApp.Views.Booking
             {
                 MessageBox.Show("Please select a booking to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

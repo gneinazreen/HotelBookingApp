@@ -36,27 +36,37 @@ namespace HotelBookingApp.Views
             var bookings = DataStorage.Bookings;
             var rooms = DataStorage.Rooms;
 
-            if(question.Contains("available") && question.Contains("single"))
+            DateTime targetDate = DateTime.Today.AddDays(7); 
+            var words = question.Split(' ');
+            foreach (var word in words)
             {
-                var futureDate = DateTime.Today.AddDays(7);
-                int booked = bookings.Count(b => b.RoomId == 1 && b.CheckInDate <= futureDate && b.CheckOutDate > futureDate);
-                return booked < 5 ? "Single rooms will be available next week." : "No Single room available for next week";
-
+                if (DateTime.TryParse(word, out DateTime parsedDate))
+                {
+                    targetDate = parsedDate;
+                    break;
+                }
             }
+            if (question.Contains("available") && question.Contains("single"))
+            {
+                int singleRoomId = rooms.FirstOrDefault(r => r.RoomType.ToLower() == "single")?.RoomId ?? 1;
+                int booked = bookings.Count(b => b.RoomId == singleRoomId && b.CheckInDate <= targetDate && b.CheckOutDate > targetDate);
+                return booked < 5 ? $"Single rooms are available on {targetDate:MMMM dd}." : $"No Single room available on {targetDate:MMMM dd}.";
+            }
+
             if (question.Contains("price") && question.Contains("double"))
             {
                 var basePrice = rooms.FirstOrDefault(r => r.RoomType.ToLower() == "double")?.BasePrice ?? 100;
                 int doubleBookings = bookings.Count(b => b.RoomId == 2);
                 if (doubleBookings > 10)
                 {
-                    return $"Expected price: {basePrice + 20} (high demand)";
+                    return $"Expected price: ${basePrice + 20} (high demand)";
                 }
                 else
                 {
-                    return $"Expected price: {basePrice} (normal demand)";
+                    return $"Expected price: ${basePrice} (normal demand)";
                 }
             }
-            if (question.Contains("busiest day"))
+            if (question.Contains("busiest"))
             {
                 var busiestDay = bookings
                     .SelectMany(b => Enumerable.Range(0, (b.CheckOutDate - b.CheckInDate).Days)
