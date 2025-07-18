@@ -22,24 +22,28 @@ namespace HotelBookingApp.Views
         {
             InitializeComponent();
             this.Name = "ReportForm";
-            LoadWeeklyReport();
+            //LoadWeeklyReport();
+            DateTime today = DateTime.Today;
+            while (today.DayOfWeek != DayOfWeek.Monday)
+                today = today.AddDays(-1);
+
+            dtpWeekStart.Value = today;
+            LoadWeeklyReport(today);
         }
         private List<ReportEntry> weeklyEntries = new List<ReportEntry>();
-        private void LoadWeeklyReport()
+        private void LoadWeeklyReport(DateTime weekStart)
         {
             listViewReport.Items.Clear();
             weeklyEntries.Clear();
-
-            DateTime weekStart = DateTime.Today;
-            while (weekStart.DayOfWeek != DayOfWeek.Monday)
-                weekStart = weekStart.AddDays(-1);
 
             for (int i = 0; i < 7; i++)
             {
                 DateTime day = weekStart.AddDays(i);
                 string dayLabel = day.ToString("dddd, yyyy-MM-dd");
 
-                var bookingsOnDay = DataStorage.Bookings.Where(b => b.CheckInDate <= day &&  b.CheckOutDate > day).ToList();
+                var bookingsOnDay = DataStorage.Bookings
+                    .Where(b => b.CheckInDate <= day && b.CheckOutDate > day)
+                    .ToList();
 
                 if (bookingsOnDay.Count == 0)
                 {
@@ -82,7 +86,7 @@ namespace HotelBookingApp.Views
                 }
             }
         }
-        
+
         private void ReportForm_Load(object sender, EventArgs e)
         {
 
@@ -132,6 +136,11 @@ namespace HotelBookingApp.Views
                     {
                         var pdf = new PdfDocument(writer);
                         var doc = new Document(pdf);
+
+                        DateTime monday = DateTime.Today;
+                        while (monday.DayOfWeek != DayOfWeek.Monday)
+                            monday = monday.AddDays(-1);
+
                         doc.Add(new Paragraph("Weekly Hotel Booking Report").SetFontSize(16));
 
                         var table = new Table(4, true);
@@ -157,6 +166,34 @@ namespace HotelBookingApp.Views
             }
 
             
+        }
+        private void dtpWeekStart_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime selected = dtpWeekStart.Value;
+
+            // If not Monday, snap to the previous Monday
+            while (selected.DayOfWeek != DayOfWeek.Monday)
+            {
+                selected = selected.AddDays(-1);
+            }
+
+            // Set corrected value
+            dtpWeekStart.Value = selected;
+        }
+        private void navigationMenu1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnLoadWeek_Click(object sender, EventArgs e)
+        {
+            DateTime selectedDate = dtpWeekStart.Value;
+
+            // selected date starts from Monday
+            while (selectedDate.DayOfWeek != DayOfWeek.Monday)
+                selectedDate = selectedDate.AddDays(-1);
+
+            LoadWeeklyReport(selectedDate);
         }
     }
     public class ReportEntry
