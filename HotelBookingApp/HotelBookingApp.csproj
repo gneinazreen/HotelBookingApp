@@ -175,6 +175,7 @@
     <Compile Include="Views\ChatbotForm.Designer.cs">
       <DependentUpon>ChatbotForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ChatbotService.cs" />
     <Compile Include="Views\Main.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -43,15 +43,15 @@
             // 
             // txtResponse
             // 
-            this.txtResponse.Location = new System.Drawing.Point(0, 69);
+            this.txtResponse.Location = new System.Drawing.Point(6, 50);
             this.txtResponse.Name = "txtResponse";
-            this.txtResponse.Size = new System.Drawing.Size(294, 294);
+            this.txtResponse.Size = new System.Drawing.Size(575, 125);
             this.txtResponse.TabIndex = 1;
             this.txtResponse.Text = "";
             // 
             // btnAsk
             // 
-            this.btnAsk.Location = new System.Drawing.Point(251, 232);
+            this.btnAsk.Location = new System.Drawing.Point(277, 223);
             this.btnAsk.Name = "btnAsk";
             this.btnAsk.Size = new System.Drawing.Size(75, 23);
             this.btnAsk.TabIndex = 2;
@@ -63,17 +63,19 @@
             // 
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.txtResponse);
-            this.panel1.Location = new System.Drawing.Point(332, 99);
+            this.panel1.Location = new System.Drawing.Point(24, 252);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(297, 363);
+            this.panel1.Size = new System.Drawing.Size(581, 185);
             this.panel1.TabIndex = 3;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(106, 34);
+            this.label1.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.label1.Location = new System.Drawing.Point(238, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(104, 13);
+            this.label1.Padding = new System.Windows.Forms.Padding(3);
+            this.label1.Size = new System.Drawing.Size(110, 19);
             this.label1.TabIndex = 2;
             this.label1.Text = "Response Recieved";
             // 
@@ -81,31 +83,34 @@
             // 
             this.panel2.Controls.Add(this.lblQuestion);
             this.panel2.Controls.Add(this.txtQuestion);
-            this.panel2.Location = new System.Drawing.Point(0, 99);
+            this.panel2.Location = new System.Drawing.Point(27, 94);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(245, 363);
+            this.panel2.Size = new System.Drawing.Size(575, 123);
             this.panel2.TabIndex = 4;
             // 
             // lblQuestion
             // 
             this.lblQuestion.AutoSize = true;
-            this.lblQuestion.Location = new System.Drawing.Point(78, 34);
+            this.lblQuestion.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.lblQuestion.Location = new System.Drawing.Point(253, 14);
             this.lblQuestion.Name = "lblQuestion";
-            this.lblQuestion.Size = new System.Drawing.Size(72, 13);
+            this.lblQuestion.Padding = new System.Windows.Forms.Padding(3);
+            this.lblQuestion.Size = new System.Drawing.Size(78, 19);
             this.lblQuestion.TabIndex = 1;
             this.lblQuestion.Text = "Ask Anything!";
             // 
             // txtQuestion
             // 
-            this.txtQuestion.Location = new System.Drawing.Point(0, 69);
+            this.txtQuestion.Location = new System.Drawing.Point(3, 47);
             this.txtQuestion.Name = "txtQuestion";
-            this.txtQuestion.Size = new System.Drawing.Size(242, 291);
+            this.txtQuestion.Size = new System.Drawing.Size(569, 63);
             this.txtQuestion.TabIndex = 0;
             this.txtQuestion.Text = "";
             // 
             // navigationMenu1
             // 
             this.navigationMenu1.Location = new System.Drawing.Point(0, -1);
+            this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
             this.navigationMenu1.Name = "navigationMenu1";
             this.navigationMenu1.Size = new System.Drawing.Size(629, 26);
             this.navigationMenu1.TabIndex = 5;
