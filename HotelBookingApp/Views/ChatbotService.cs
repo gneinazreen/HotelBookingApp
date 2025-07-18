@@ -53,7 +53,7 @@ public static class ChatbotService
 
         int roomId = rooms.First(r => r.RoomType.ToLower() == roomType.ToLower()).RoomId;
         int booked = bookings.Count(b => b.RoomId == roomId && b.CheckInDate <= date && b.CheckOutDate > date);
-        int totalAvailable = 5; // assumed availability for simplicity
+        int totalAvailable = 5; 
 
         return booked < totalAvailable
             ? $"{roomType} rooms are available on {date:MMMM dd}."
