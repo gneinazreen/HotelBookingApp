@@ -40,11 +40,23 @@ namespace HotelBookingApp.Views
         }
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            if (!float.TryParse(txtBasePrice.Text.Trim(), out float price))
+            {
+                MessageBox.Show("Base Price must be a valid number.");
+                return;
+            }
             var newRoom = new Room
             {
-                RoomType = txtRoomType.Text,
-                BasePrice = float.TryParse(txtBasePrice.Text, out float price) ? price : 0f
+                RoomType = txtRoomType.Text.Trim(),
+                BasePrice = price
             };
+
+            var errors = HotelBookingApp.Validators.RoomValidator.ValidateRoom(newRoom);
+            if (errors.Count > 0)
+            {
+                MessageBox.Show(string.Join("\n", errors), "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
             DataStorage.AddRoom(newRoom);
             LoadRooms();
             formBooking?.UpdateRoomTypes();
@@ -115,5 +127,21 @@ namespace HotelBookingApp.Views
         {
 
         }
+
+        //private void txtBasePrice_TextChanged(object sender, KeyPressEventArgs e)
+        //{
+        //    // Allow only digits, one dot, and backspace
+        //    if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) &&
+        //        (e.KeyChar != '.'))
+        //    {
+        //        e.Handled = true;
+        //    }
+
+        //    // Only allow one decimal point
+        //    if (e.KeyChar == '.' && (sender as TextBox).Text.Contains('.'))
+        //    {
+        //        e.Handled = true;
+        //    }
+        //}
     }
 }
