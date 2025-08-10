@@ -307,5 +307,10 @@ namespace HotelBookingApp.Views.Booking
         {
 
         }
+
+        private void txtFName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

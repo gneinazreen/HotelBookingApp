@@ -44,5 +44,10 @@ namespace HotelBookingApp.Views
         {
 
         }
+
+        private void txtQuestion_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

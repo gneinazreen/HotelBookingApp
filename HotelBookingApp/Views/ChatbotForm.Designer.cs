@@ -106,6 +106,7 @@
             this.txtQuestion.Size = new System.Drawing.Size(569, 63);
             this.txtQuestion.TabIndex = 0;
             this.txtQuestion.Text = "";
+            this.txtQuestion.TextChanged += new System.EventHandler(this.txtQuestion_TextChanged);
             // 
             // navigationMenu1
             // 

@@ -226,6 +226,7 @@
             this.txtFName.Name = "txtFName";
             this.txtFName.Size = new System.Drawing.Size(200, 20);
             this.txtFName.TabIndex = 41;
+            this.txtFName.TextChanged += new System.EventHandler(this.txtFName_TextChanged);
             // 
             // txtLName
             // 

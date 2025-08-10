@@ -93,5 +93,10 @@ namespace HotelBookingApp.Views
         {
 
         }
+
+        private void txtDescription_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
