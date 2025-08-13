@@ -16,7 +16,7 @@ namespace HotelBookingApp.Validators
             if (string.IsNullOrWhiteSpace(room.RoomType))
                 errors.Add("Room Type is required.");
 
-            if (room.BasePrice <= 0)
+            if (room.BasePrice <= 0m)
                 errors.Add("Base Price must be a positive number.");
 
             return errors;

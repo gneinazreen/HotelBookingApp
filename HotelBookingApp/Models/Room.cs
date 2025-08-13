@@ -10,6 +10,6 @@ namespace HotelBookingApp.Models
     {
         public int RoomId { get; set; }
         public string RoomType { get; set; }
-        public float BasePrice { get; set; }
+        public decimal BasePrice { get; set; }
     }
 }

@@ -1,61 +1,61 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+﻿using HotelBooking.Api.Contracts;
 using HotelBooking.Api.Infrastructure;
-using HotelBooking.Api.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace HotelBooking.Api.Controllers
+namespace HotelBooking.Api.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class ReportsController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class ReportsController : ControllerBase
+    private readonly HotelContext _db;
+    public ReportsController(HotelContext db) => _db = db;
+
+    // GET api/reports/daily?start=2025-08-01&end=2025-08-31
+    [HttpGet("daily")]
+    public async Task<ActionResult<IEnumerable<WeeklyReportRow>>> Daily([FromQuery] DateTime start, [FromQuery] DateTime end)
     {
-        private readonly HotelContext _db;
-        public ReportsController(HotelContext db) => _db = db;
+        if (end.Date <= start.Date) return BadRequest("end must be after start");
 
-        [HttpGet("weekly")]
-        public async Task<ActionResult<IEnumerable<WeeklyReportRow>>> Weekly([FromQuery] DateTime weekStart)
-        {
-            var start = weekStart.Date;
-            var end = start.AddDays(7);
+        var q =
+            from b in _db.Bookings.AsNoTracking()
+            join r in _db.Rooms.AsNoTracking() on b.RoomId equals r.RoomId
+            join s in _db.Requests.AsNoTracking() on b.RequestId equals s.RequestId
+            where b.CheckIn.Date >= start.Date && b.CheckIn.Date < end.Date
+            orderby b.CheckIn
+            select new WeeklyReportRow(
+                b.CheckIn.Date,
+                b.FirstName + " " + b.LastName,
+                r.RoomType,
+                s.Description
+            );
 
-            var bookings = await _db.Bookings
-                .AsNoTracking()
-                .Where(b => b.CheckIn <= end && b.CheckOut > start)
-                .ToListAsync();
+        var rows = await q.ToListAsync();
+        return Ok(rows);
+    }
 
-            var rooms = await _db.Rooms
-                .AsNoTracking()
-                .ToDictionaryAsync(r => r.RoomId, r => r.RoomType);
+    // GET api/reports/weekly?weekStart=2025-08-11
+    [HttpGet("weekly")]
+    public async Task<ActionResult<IEnumerable<WeeklyReportRow>>> Weekly([FromQuery] DateTime weekStart)
+    {
+        var start = weekStart.Date;
+        var end = start.AddDays(7);
 
-            var reqs = await _db.Requests
-                .AsNoTracking()
-                .ToDictionaryAsync(r => r.RequestId, r => r.Description);
+        var q =
+            from b in _db.Bookings.AsNoTracking()
+            join r in _db.Rooms.AsNoTracking() on b.RoomId equals r.RoomId
+            join s in _db.Requests.AsNoTracking() on b.RequestId equals s.RequestId
+            where b.CheckIn.Date >= start && b.CheckIn.Date < end
+            orderby b.CheckIn
+            select new WeeklyReportRow(
+                b.CheckIn.Date,
+                b.FirstName + " " + b.LastName,
+                r.RoomType,
+                s.Description
+            );
 
-            var rows = new List<WeeklyReportRow>();
-            for (int i = 0; i < 7; i++)
-            {
-                var day = start.AddDays(i);
-                var onDay = bookings.Where(b => b.CheckIn <= day && b.CheckOut > day);
-
-                if (!onDay.Any())
-                {
-                    rows.Add(new WeeklyReportRow(day, "No bookings", "-", "-"));
-                }
-                else
-                {
-                    foreach (var b in onDay)
-                    {
-                        rows.Add(new WeeklyReportRow(
-                            day,
-                            $"{b.FirstName} {b.LastName}",
-                            rooms.TryGetValue(b.RoomId, out var rt) ? rt : "Unknown",
-                            reqs.TryGetValue(b.RequestId, out var rq) ? rq : "-"
-                        ));
-                    }
-                }
-            }
-
-            return Ok(rows);
-        }
+        var rows = await q.ToListAsync();
+        return Ok(rows);
     }
 }

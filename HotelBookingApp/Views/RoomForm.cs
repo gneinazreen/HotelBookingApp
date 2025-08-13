@@ -9,20 +9,37 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using HotelBookingApp.Services;
+using HotelBooking.Api.Contracts;                  // RoomDto
+using HotelBookingApp.Models;                      // for RoomValidator's input model
+using HotelBookingApp.Services;                    // ApiClient
 
 namespace HotelBookingApp.Views
 {
     public partial class RoomForm : Form
     {
-        private BookingForm formBooking;
-        public RoomForm(BookingForm bookingForm)
+        //private BookingForm formBooking;
+        //private ApiClient _api;
+        private readonly ApiClient _api;
+        private readonly BookingForm _bookingForm;                 // optional: to refresh its room list
+        private List<RoomDto> _rooms = new List<RoomDto>();
+        public RoomForm()
         {
             InitializeComponent();
+            _api = null;
+        }
+        public RoomForm(BookingForm bookingForm)
+        {
+            //InitializeComponent();
             this.Name = "RoomForm";
             formBooking = bookingForm;
             LoadRooms();
         }
-
+        public RoomForm(ApiClient api) : this()
+        {
+            if (api == null) throw new ArgumentNullException(nameof(api));
+            _api = api;
+        }
         private void txtRoomType_TextChanged(object sender, EventArgs e)
         {
 

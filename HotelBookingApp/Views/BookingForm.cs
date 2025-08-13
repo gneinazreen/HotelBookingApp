@@ -14,10 +14,17 @@ namespace HotelBookingApp.Views.Booking
 {
     public partial class BookingForm : Form
     {
+        private ApiClient _api;
         public BookingForm()
         {
             InitializeComponent();
-
+            _api = null;
+        }
+        public BookingForm(ApiClient api) : this()
+        {
+            InitializeComponent();
+            if (api == null) throw new ArgumentNullException(nameof(api));
+            _api = api;
             this.Name = "BookingForm";
             UpdateRoomTypes();
             UpdateRequests();
