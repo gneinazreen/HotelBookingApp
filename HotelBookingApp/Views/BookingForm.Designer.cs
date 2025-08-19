@@ -1,4 +1,4 @@
-﻿namespace HotelBookingApp.Views.Booking
+﻿namespace HotelBookingApp.Views
 {
     partial class BookingForm
     {
@@ -62,7 +62,7 @@
             this.checkOut = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.requests = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.recurrence = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            //this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -409,11 +409,11 @@
             // 
             // navigationMenu1
             // 
-            this.navigationMenu1.Location = new System.Drawing.Point(1, 0);
-            this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
-            this.navigationMenu1.Name = "navigationMenu1";
-            this.navigationMenu1.Size = new System.Drawing.Size(1027, 29);
-            this.navigationMenu1.TabIndex = 15;
+            //this.navigationMenu1.Location = new System.Drawing.Point(1, 0);
+            //this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
+            //this.navigationMenu1.Name = "navigationMenu1";
+            //this.navigationMenu1.Size = new System.Drawing.Size(1027, 29);
+            //this.navigationMenu1.TabIndex = 15;
             // 
             // label4
             // 
@@ -435,7 +435,7 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(1030, 431);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.navigationMenu1);
+            //this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "BookingForm";

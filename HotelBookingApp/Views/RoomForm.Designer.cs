@@ -6,7 +6,7 @@
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
-
+        private HotelBookingApp.NavigationMenu navigationMenu1;
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
@@ -43,7 +43,7 @@
             this.roomID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.roomTypeC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.basePriceC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            //this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -192,11 +192,11 @@
             // 
             // navigationMenu1
             // 
-            this.navigationMenu1.Location = new System.Drawing.Point(0, -2);
-            this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
-            this.navigationMenu1.Name = "navigationMenu1";
-            this.navigationMenu1.Size = new System.Drawing.Size(711, 28);
-            this.navigationMenu1.TabIndex = 2;
+            //this.navigationMenu1.Location = new System.Drawing.Point(0, -2);
+            //this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
+            //this.navigationMenu1.Name = "navigationMenu1";
+            //this.navigationMenu1.Size = new System.Drawing.Size(711, 28);
+            //this.navigationMenu1.TabIndex = 2;
             // 
             // label4
             // 
@@ -216,7 +216,7 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(712, 360);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.navigationMenu1);
+            //this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "RoomForm";
@@ -245,7 +245,6 @@
         private System.Windows.Forms.ColumnHeader roomTypeC;
         private System.Windows.Forms.ColumnHeader basePriceC;
         private System.Windows.Forms.Button btnUpdate;
-        private NavigationMenu navigationMenu1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label5;

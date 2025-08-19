@@ -35,7 +35,7 @@
             this.request = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnExportCSV = new System.Windows.Forms.Button();
             this.btnExportPDF = new System.Windows.Forms.Button();
-            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            //this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
             this.label4 = new System.Windows.Forms.Label();
             this.dtpWeekStart = new System.Windows.Forms.DateTimePicker();
             this.btnLoadWeek = new System.Windows.Forms.Button();
@@ -98,12 +98,12 @@
             // 
             // navigationMenu1
             // 
-            this.navigationMenu1.Location = new System.Drawing.Point(0, 0);
-            this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
-            this.navigationMenu1.Name = "navigationMenu1";
-            this.navigationMenu1.Size = new System.Drawing.Size(516, 28);
-            this.navigationMenu1.TabIndex = 3;
-            this.navigationMenu1.Load += new System.EventHandler(this.navigationMenu1_Load);
+            //this.navigationMenu1.Location = new System.Drawing.Point(0, 0);
+            //this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
+            //this.navigationMenu1.Name = "navigationMenu1";
+            //this.navigationMenu1.Size = new System.Drawing.Size(516, 28);
+            //this.navigationMenu1.TabIndex = 3;
+            //this.navigationMenu1.Load += new System.EventHandler(this.navigationMenu1_Load);
             // 
             // label4
             // 
@@ -155,7 +155,7 @@
             this.Controls.Add(this.btnLoadWeek);
             this.Controls.Add(this.dtpWeekStart);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.navigationMenu1);
+            //this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.btnExportPDF);
             this.Controls.Add(this.btnExportCSV);
             this.Controls.Add(this.listViewReport);
@@ -176,7 +176,7 @@
         private System.Windows.Forms.ColumnHeader guest;
         private System.Windows.Forms.ColumnHeader roomType;
         private System.Windows.Forms.ColumnHeader request;
-        private NavigationMenu navigationMenu1;
+        //private NavigationMenu navigationMenu1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.DateTimePicker dtpWeekStart;
         private System.Windows.Forms.Button btnLoadWeek;

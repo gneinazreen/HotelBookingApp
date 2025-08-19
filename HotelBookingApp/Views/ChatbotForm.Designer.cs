@@ -35,7 +35,7 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.lblQuestion = new System.Windows.Forms.Label();
             this.txtQuestion = new System.Windows.Forms.RichTextBox();
-            this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
+            //this.navigationMenu1 = new HotelBookingApp.NavigationMenu();
             this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -110,11 +110,11 @@
             // 
             // navigationMenu1
             // 
-            this.navigationMenu1.Location = new System.Drawing.Point(0, -1);
-            this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
-            this.navigationMenu1.Name = "navigationMenu1";
-            this.navigationMenu1.Size = new System.Drawing.Size(629, 26);
-            this.navigationMenu1.TabIndex = 5;
+            //this.navigationMenu1.Location = new System.Drawing.Point(0, -1);
+            //this.navigationMenu1.Margin = new System.Windows.Forms.Padding(0);
+            //this.navigationMenu1.Name = "navigationMenu1";
+            //this.navigationMenu1.Size = new System.Drawing.Size(629, 26);
+            //this.navigationMenu1.TabIndex = 5;
             // 
             // label4
             // 
@@ -134,7 +134,7 @@
             this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.ClientSize = new System.Drawing.Size(630, 464);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.navigationMenu1);
+            //this.Controls.Add(this.navigationMenu1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnAsk);

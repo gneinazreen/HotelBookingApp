@@ -1,99 +1,121 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using HotelBookingApp.Services;
 using HotelBookingApp.Views;
 
 namespace HotelBookingApp
 {
     public partial class NavigationMenu : UserControl
     {
+        private ApiClient _api;   // injected at runtime
+
         public NavigationMenu()
         {
             InitializeComponent();
-            InitializeMenu();
-            //var menu = new NavigationMenu();
-            //menu.Dock = DockStyle.Top;
-            //this.Controls.Add(menu);
+            BuildMenu();
         }
-        private void InitializeMenu()
+
+        /// <summary>Inject the ApiClient from your host form (e.g., Main).</summary>
+        public void SetApi(ApiClient api) => _api = api ?? throw new ArgumentNullException(nameof(api));
+
+        private void BuildMenu()
         {
-            var menu = new MenuStrip();
-            menu.Dock = DockStyle.Top;
+            // Use the designer-created MenuStrip if available; otherwise create one.
+            MenuStrip menu;
+            try
+            {
+                // 'menuStrip1' is generated in NavigationMenu.Designer.cs
+                menu = this.menuStrip1;
+            }
+            catch
+            {
+                menu = null;
+            }
+
+            if (menu == null)
+            {
+                menu = new MenuStrip { Dock = DockStyle.Top };
+                Controls.Add(menu);
+            }
+            else
+            {
+                menu.Items.Clear();
+            }
+
             var bookings = new ToolStripMenuItem("Bookings");
             bookings.Click += (s, e) =>
             {
-                var openForm = Application.OpenForms["BookingForm"];
-                if (openForm == null)
-                    new Views.Booking.BookingForm().Show();
-                else
-                    openForm.BringToFront();
+                if (!EnsureApi()) return;
+                OpenOrActivate(() => new BookingForm(_api));
             };
 
             var rooms = new ToolStripMenuItem("Rooms");
-            
             rooms.Click += (s, e) =>
             {
-                var openForm = Application.OpenForms["RoomForm"];
-                if (openForm == null)
-                {
-                    var bookingForm = Application.OpenForms["RoomForm"] as Views.Booking.BookingForm;
-                    new Views.RoomForm(bookingForm).Show();
-                }
-                else
-                {
-                    openForm.BringToFront();
-                }
+                if (!EnsureApi()) return;
+                OpenOrActivate(() => new RoomForm(_api));
             };
 
             var requests = new ToolStripMenuItem("Requests");
             requests.Click += (s, e) =>
             {
-                var openForm = Application.OpenForms["RequestForm"];
-                if (openForm == null)
-                    new Views.RequestForm().Show();
-                else
-                    openForm.BringToFront();
+                if (!EnsureApi()) return;
+                OpenOrActivate(() => new RequestForm(_api));
             };
 
             var reports = new ToolStripMenuItem("Reports");
             reports.Click += (s, e) =>
             {
-                var openForm = Application.OpenForms["ReportForm"];
-                if (openForm == null)
-                    new Views.ReportForm().Show();
-                else
-                    openForm.BringToFront();
+                if (!EnsureApi()) return;
+                OpenOrActivate(() => new ReportForm(_api));
             };
 
             var chatbot = new ToolStripMenuItem("Chatbot");
             chatbot.Click += (s, e) =>
             {
-                var openForm = Application.OpenForms["ChatbotForm"];
-                if (openForm == null)
-                    new Views.ChatbotForm().Show();
-                else
-                    openForm.BringToFront();
+                OpenOrActivate(() => new ChatbotForm());
             };
-            // Add items to menu
+
             menu.Items.Add(bookings);
             menu.Items.Add(rooms);
             menu.Items.Add(requests);
             menu.Items.Add(reports);
             menu.Items.Add(chatbot);
-
-            // Add menu to the UserControl
-            this.Controls.Add(menu);
-
         }
-        private void NavigationMenu_Load(object sender, EventArgs e)
-        {
 
+        // Designer likely wires this; keep a harmless stub so the designer opens.
+        private void menuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // No-op. We handle clicks per-item in BuildMenu().
+        }
+
+        private static void OpenOrActivate<T>(Func<T> factory) where T : Form
+        {
+            var existing = Application.OpenForms.OfType<T>().FirstOrDefault();
+            if (existing == null)
+            {
+                var f = factory();
+                f.Show(); // modeless
+            }
+            else
+            {
+                if (existing.WindowState == FormWindowState.Minimized)
+                    existing.WindowState = FormWindowState.Normal;
+                existing.BringToFront();
+                existing.Activate();
+            }
+        }
+
+        private bool EnsureApi()
+        {
+            if (_api != null) return true;
+            MessageBox.Show(
+                "API client is not configured. Call navigationMenu1.SetApi(api) from the host form.",
+                "Configuration",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Warning);
+            return false;
         }
     }
 }

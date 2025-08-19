@@ -1,206 +1,230 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.ComponentModel;             // LicenseManager.UsageMode
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelBookingApp.Models;
+using HotelBooking.Contracts;        // WeeklyReportRow
+using HotelBookingApp.Services;          // ApiClient
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
-
 
 namespace HotelBookingApp.Views
 {
     public partial class ReportForm : Form
     {
+        private ApiClient _api;                               // injected at runtime
+        private List<WeeklyReportRow> _weeklyEntries = new List<WeeklyReportRow>();
+
+        // -------- Designer-safe ctor (no network) --------
         public ReportForm()
         {
             InitializeComponent();
             this.Name = "ReportForm";
-            //LoadWeeklyReport();
-            DateTime today = DateTime.Today;
-            while (today.DayOfWeek != DayOfWeek.Monday)
-                today = today.AddDays(-1);
 
-            dtpWeekStart.Value = today;
-            LoadWeeklyReport(today);
+            // Snap the picker to the previous Monday by default (design-time safe)
+            var monday = DateTime.Today;
+            while (monday.DayOfWeek != DayOfWeek.Monday)
+                monday = monday.AddDays(-1);
+            dtpWeekStart.Value = monday;
         }
-        private List<ReportEntry> weeklyEntries = new List<ReportEntry>();
-        private void LoadWeeklyReport(DateTime weekStart)
+
+        // -------- Runtime ctor (inject ApiClient) --------
+        public ReportForm(ApiClient api) : this()
         {
-            listViewReport.Items.Clear();
-            weeklyEntries.Clear();
-
-            for (int i = 0; i < 7; i++)
-            {
-                DateTime day = weekStart.AddDays(i);
-                string dayLabel = day.ToString("dddd, yyyy-MM-dd");
-
-                var bookingsOnDay = DataStorage.Bookings
-                    .Where(b => b.CheckInDate <= day && b.CheckOutDate > day)
-                    .ToList();
-
-                if (bookingsOnDay.Count == 0)
-                {
-                    var item = new ListViewItem(dayLabel);
-                    item.SubItems.Add("No Bookings");
-                    listViewReport.Items.Add(item);
-
-                    weeklyEntries.Add(new ReportEntry
-                    {
-                        Day = dayLabel,
-                        Guest = "No bookings",
-                        RoomType = "-",
-                        Request = "-"
-                    });
-                }
-                else
-                {
-                    foreach (var b in bookingsOnDay)
-                    {
-                        var room = DataStorage.Rooms.FirstOrDefault(r => r.RoomId == b.RoomId);
-                        var request = DataStorage.Requests.FirstOrDefault(r => r.RequestId == b.RequestId);
-
-                        string roomType = room?.RoomType ?? "Unknown";
-                        string requestDesc = request?.Description ?? "None";
-
-                        var item = new ListViewItem(dayLabel);
-                        item.SubItems.Add($"{b.FirstName} {b.LastName}");
-                        item.SubItems.Add(roomType);
-                        item.SubItems.Add(requestDesc);
-                        listViewReport.Items.Add(item);
-
-                        weeklyEntries.Add(new ReportEntry
-                        {
-                            Day = dayLabel,
-                            Guest = $"{b.FirstName} {b.LastName}",
-                            RoomType = roomType,
-                            Request = requestDesc
-                        });
-                    }
-                }
-            }
+            _api = api ?? throw new ArgumentNullException(nameof(api));
         }
 
-        private void ReportForm_Load(object sender, EventArgs e)
+        private async void ReportForm_Load(object sender, EventArgs e)
         {
+            if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || _api == null)
+                return;
 
+            await LoadWeeklyReportAsync(dtpWeekStart.Value);
         }
 
-        private void listViewReport_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnExportCSV_Click(object sender, EventArgs e)
-        {
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "CSV files (*.csv)|*.csv";
-                sfd.Title = "Save Weekly Report as CSV";
-                sfd.FileName = "WeeklyReport.csv";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    var sb = new StringBuilder();
-                    sb.AppendLine("Day,Guest,RoomType,Request");
-
-                    foreach (var entry in weeklyEntries)
-                    {
-                        sb.AppendLine($"{entry.Day},{entry.Guest},{entry.RoomType},{entry.Request}");
-                    }
-
-                    File.WriteAllText(sfd.FileName, sb.ToString());
-                    MessageBox.Show("CSV exported successfully.", "Export", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-        }
-
-        private void btnExportPDF_Click(object sender, EventArgs e)
-        {
-            //using (var writer = new PdfWriter("WeeklyReport.pdf"))
-            using (SaveFileDialog sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "PDF files (*.pdf)|*.pdf";
-                sfd.Title = "Save Weekly Report as PDF";
-                sfd.FileName = "WeeklyReport.pdf";
-
-                if (sfd.ShowDialog() == DialogResult.OK)
-                {
-                    using (var writer = new PdfWriter(sfd.FileName))
-                    {
-                        var pdf = new PdfDocument(writer);
-                        var doc = new Document(pdf);
-
-                        DateTime monday = DateTime.Today;
-                        while (monday.DayOfWeek != DayOfWeek.Monday)
-                            monday = monday.AddDays(-1);
-
-                        doc.Add(new Paragraph("Weekly Hotel Booking Report").SetFontSize(16));
-
-                        var table = new Table(4, true);
-                        table.AddHeaderCell("Day");
-                        table.AddHeaderCell("Guest");
-                        table.AddHeaderCell("Room Type");
-                        table.AddHeaderCell("Request");
-
-                        foreach (var entry in weeklyEntries)
-                        {
-                            table.AddCell(entry.Day);
-                            table.AddCell(entry.Guest);
-                            table.AddCell(entry.RoomType);
-                            table.AddCell(entry.Request);
-                        }
-
-                        doc.Add(table);
-                        doc.Close();
-                    }
-                    MessageBox.Show("PDF Exported: WeeklyReport.pdf");
-                }
-                
-            }
-
-            
-        }
+        // Keep the picker aligned to Mondays
         private void dtpWeekStart_ValueChanged(object sender, EventArgs e)
         {
             DateTime selected = dtpWeekStart.Value;
-
-            // If not Monday, snap to the previous Monday
             while (selected.DayOfWeek != DayOfWeek.Monday)
-            {
                 selected = selected.AddDays(-1);
-            }
-
-            // Set corrected value
             dtpWeekStart.Value = selected;
         }
-        private void navigationMenu1_Load(object sender, EventArgs e)
-        {
 
+        private async void btnLoadWeek_Click(object sender, EventArgs e)
+        {
+            if (_api == null) return;
+            await LoadWeeklyReportAsync(dtpWeekStart.Value);
         }
 
-        private void btnLoadWeek_Click(object sender, EventArgs e)
+        // -------------------- Core loader --------------------
+        private async Task LoadWeeklyReportAsync(DateTime weekStart)
         {
-            DateTime selectedDate = dtpWeekStart.Value;
+            if (_api == null) return;
 
-            // selected date starts from Monday
-            while (selectedDate.DayOfWeek != DayOfWeek.Monday)
-                selectedDate = selectedDate.AddDays(-1);
+            try
+            {
+                var start = weekStart.Date;
+                while (start.DayOfWeek != DayOfWeek.Monday)
+                    start = start.AddDays(-1);
+                var end = start.AddDays(7);
 
-            LoadWeeklyReport(selectedDate);
+                // Pull check-in rows for the selected week
+                var rows = await _api.GetDailyReport(start, end) ?? new List<WeeklyReportRow>();
+
+                // Build a full Mon→Sun list and add "No bookings" placeholders
+                var filled = new List<WeeklyReportRow>();
+                listViewReport.Items.Clear();
+
+                for (int i = 0; i < 7; i++)
+                {
+                    var day = start.AddDays(i).Date;
+                    var rowsForDay = rows.Where(r => r.Day.Date == day).ToList();
+
+                    if (rowsForDay.Count == 0)
+                    {
+                        // UI row
+                        var item = new ListViewItem($"{day:dddd, yyyy-MM-dd}");
+                        item.SubItems.Add("No Bookings");
+                        listViewReport.Items.Add(item);
+
+                        // Keep a placeholder for export
+                        filled.Add(new WeeklyReportRow
+                        {
+                            Day = day,
+                            Guest = "No bookings",
+                            RoomType = "-",
+                            Request = "-"
+                        });
+                    }
+                    else
+                    {
+                        foreach (var r in rowsForDay)
+                        {
+                            var item = new ListViewItem($"{day:dddd, yyyy-MM-dd}");
+                            item.SubItems.Add(r.Guest);
+                            item.SubItems.Add(r.RoomType);
+                            item.SubItems.Add(r.Request);
+                            listViewReport.Items.Add(item);
+
+                            filled.Add(new WeeklyReportRow
+                            {
+                                Day = r.Day.Date,
+                                Guest = r.Guest ?? "",
+                                RoomType = r.RoomType ?? "",
+                                Request = r.Request ?? ""
+                            });
+                        }
+                    }
+                }
+
+                _weeklyEntries = filled;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load weekly report.\n" + ex.Message,
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-    }
-    public class ReportEntry
-    {
-        public string Day { get; set; }
-        public string Guest { get; set; }
-        public string RoomType { get; set; }
-        public string Request { get; set; }
+
+        // -------------------- CSV Export --------------------
+        private void btnExportCSV_Click(object sender, EventArgs e)
+        {
+            if (_weeklyEntries == null || _weeklyEntries.Count == 0)
+            {
+                MessageBox.Show("Nothing to export.");
+                return;
+            }
+
+            using (var sfd = new SaveFileDialog
+            {
+                Filter = "CSV files (*.csv)|*.csv",
+                Title = "Save Weekly Report as CSV",
+                FileName = "WeeklyReport.csv"
+            })
+            {
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                var sb = new StringBuilder();
+                sb.AppendLine("Day,Guest,RoomType,Request");
+
+                foreach (var entry in _weeklyEntries)
+                {
+                    var day = entry.Day.ToString("dddd, yyyy-MM-dd");
+                    var guest = EscapeCsv(entry.Guest);
+                    var room = EscapeCsv(entry.RoomType);
+                    var req = EscapeCsv(entry.Request);
+                    sb.AppendLine($"{EscapeCsv(day)},{guest},{room},{req}");
+                }
+
+                File.WriteAllText(sfd.FileName, sb.ToString());
+                MessageBox.Show("CSV exported successfully.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private static string EscapeCsv(string s)
+        {
+            if (s == null) return "";
+            if (s.Contains(",") || s.Contains("\"") || s.Contains("\n"))
+                return "\"" + s.Replace("\"", "\"\"") + "\"";
+            return s;
+        }
+
+        // -------------------- PDF Export --------------------
+        private void btnExportPDF_Click(object sender, EventArgs e)
+        {
+            if (_weeklyEntries == null || _weeklyEntries.Count == 0)
+            {
+                MessageBox.Show("Nothing to export.");
+                return;
+            }
+
+            using (var sfd = new SaveFileDialog
+            {
+                Filter = "PDF files (*.pdf)|*.pdf",
+                Title = "Save Weekly Report as PDF",
+                FileName = "WeeklyReport.pdf"
+            })
+            {
+                if (sfd.ShowDialog() != DialogResult.OK) return;
+
+                using (var writer = new PdfWriter(sfd.FileName))
+                {
+                    var pdf = new PdfDocument(writer);
+                    var doc = new Document(pdf);
+
+                    doc.Add(new Paragraph("Weekly Hotel Booking Report").SetFontSize(16));
+
+                    var table = new Table(4, true);
+                    table.AddHeaderCell("Day");
+                    table.AddHeaderCell("Guest");
+                    table.AddHeaderCell("Room Type");
+                    table.AddHeaderCell("Request");
+
+                    foreach (var entry in _weeklyEntries)
+                    {
+                        table.AddCell(entry.Day.ToString("dddd, yyyy-MM-dd"));
+                        table.AddCell(entry.Guest ?? "");
+                        table.AddCell(entry.RoomType ?? "");
+                        table.AddCell(entry.Request ?? "");
+                    }
+
+                    doc.Add(table);
+                    doc.Close();
+                }
+
+                MessageBox.Show("PDF exported successfully.", "Export",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        // Designer-wired but unused in this version
+        private void listViewReport_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void navigationMenu1_Load(object sender, EventArgs e) { }
     }
 }

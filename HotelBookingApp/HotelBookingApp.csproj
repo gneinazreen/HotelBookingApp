@@ -9,6 +9,7 @@
     <RootNamespace>HotelBookingApp</RootNamespace>
     <AssemblyName>HotelBookingApp</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <UseWindowsForms>true</UseWindowsForms>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
@@ -104,7 +105,9 @@
     <Reference Include="QuestPDF, Version=2025.7.0.0, Culture=neutral, PublicKeyToken=0f3c2b2315ff52c8, processorArchitecture=MSIL">
       <HintPath>..\packages\QuestPDF.2025.7.0\lib\netstandard2.0\QuestPDF.dll</HintPath>
     </Reference>
-    <Reference Include="System" />
+    <Reference Include="System">
+      <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
@@ -256,13 +259,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\HotelBooking.Api\HotelBooking.Api.csproj">
-      <Project>{1ca4c67e-341e-4ce9-90fd-8f3aa398b367}</Project>
-      <Name>HotelBooking.Api</Name>
+    <ProjectReference Include="..\HotelBookingApp.Contracts\HotelBooking.Contracts.csproj">
+      <Project>{3811a1c0-7f8d-4bcf-b69b-a8a8d846096c}</Project>
+      <Name>HotelBooking.Contracts</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

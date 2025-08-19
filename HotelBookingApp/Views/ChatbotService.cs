@@ -69,7 +69,7 @@ public static class ChatbotService
 
         var room = rooms.First(r => r.RoomType.ToLower() == roomType.ToLower());
         int count = bookings.Count(b => b.RoomId == room.RoomId);
-        float predictedPrice = count > 10 ? room.BasePrice + 20 : room.BasePrice;
+        decimal predictedPrice = count > 10 ? room.BasePrice + 20 : room.BasePrice;
 
         return $"Expected price for {roomType}: ${predictedPrice} ({(count > 10 ? "high" : "normal")} demand)";
     }

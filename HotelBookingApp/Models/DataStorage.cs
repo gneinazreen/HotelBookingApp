@@ -44,7 +44,7 @@ namespace HotelBookingApp.Models
             {
                 RoomId = int.Parse(r.Element("RoomId")?.Value),
                 RoomType = r.Element("RoomType")?.Value,
-                BasePrice = float.Parse(r.Element("BasePrice")?.Value)
+                BasePrice = decimal.Parse(r.Element("BasePrice")?.Value)
 
             }).ToList();
 
