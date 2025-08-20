@@ -15,7 +15,7 @@ namespace HotelBookingApp
 
             var options = new ApiOptions
             {
-                BaseAddress = "http://localhost:5118", // must match API port
+                BaseAddress = "http://localhost:5118", 
                 UseXmlRoutes = false                    // EF mode => false, XML mode => true
             };
 

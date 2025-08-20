@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;             // LicenseManager.UsageMode
+using System.ComponentModel;      // LicenseManager.UsageMode
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelBooking.Contracts;        // WeeklyReportRow
-using HotelBookingApp.Services;          // ApiClient
+using HotelBooking.Contracts;     // WeeklyReportRow (class with settable props)
+using HotelBookingApp.Services;   // ApiClient
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
@@ -16,20 +17,17 @@ namespace HotelBookingApp.Views
 {
     public partial class ReportForm : Form
     {
-        private ApiClient _api;                               // injected at runtime
+        private ApiClient _api;                                   // injected at runtime
         private List<WeeklyReportRow> _weeklyEntries = new List<WeeklyReportRow>();
 
-        // -------- Designer-safe ctor (no network) --------
+        // -------- Designer-safe ctor (no networking) --------
         public ReportForm()
         {
             InitializeComponent();
             this.Name = "ReportForm";
 
-            // Snap the picker to the previous Monday by default (design-time safe)
-            var monday = DateTime.Today;
-            while (monday.DayOfWeek != DayOfWeek.Monday)
-                monday = monday.AddDays(-1);
-            dtpWeekStart.Value = monday;
+            // Show the current week's Monday in the picker (no API calls here)
+            dtpWeekStart.Value = StartOfWeek(DateTime.Today);
         }
 
         // -------- Runtime ctor (inject ApiClient) --------
@@ -40,25 +38,39 @@ namespace HotelBookingApp.Views
 
         private async void ReportForm_Load(object sender, EventArgs e)
         {
+            // Design-time OR no API => do nothing so the designer stays happy
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || _api == null)
                 return;
 
             await LoadWeeklyReportAsync(dtpWeekStart.Value);
         }
 
-        // Keep the picker aligned to Mondays
-        private void dtpWeekStart_ValueChanged(object sender, EventArgs e)
+        // Keep the picker aligned to Mondays (avoid re-entrancy if already Monday)
+        private async void dtpWeekStart_ValueChanged(object sender, EventArgs e)
         {
-            DateTime selected = dtpWeekStart.Value;
-            while (selected.DayOfWeek != DayOfWeek.Monday)
-                selected = selected.AddDays(-1);
-            dtpWeekStart.Value = selected;
+            var current = dtpWeekStart.Value;
+            var monday = StartOfWeek(current);
+            if (monday != current.Date)            // only set if it actually changes
+            {
+                dtpWeekStart.Value = monday;
+                return;                             // let the next event fire with normalized value
+            }
+
+            if (_api != null && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
+                await LoadWeeklyReportAsync(monday);
         }
 
         private async void btnLoadWeek_Click(object sender, EventArgs e)
         {
             if (_api == null) return;
-            await LoadWeeklyReportAsync(dtpWeekStart.Value);
+            await LoadWeeklyReportAsync(StartOfWeek(dtpWeekStart.Value));
+        }
+
+        private static DateTime StartOfWeek(DateTime d)
+        {
+            d = d.Date;
+            while (d.DayOfWeek != DayOfWeek.Monday) d = d.AddDays(-1);
+            return d;
         }
 
         // -------------------- Core loader --------------------
@@ -68,17 +80,32 @@ namespace HotelBookingApp.Views
 
             try
             {
-                var start = weekStart.Date;
-                while (start.DayOfWeek != DayOfWeek.Monday)
-                    start = start.AddDays(-1);
-                var end = start.AddDays(7);
+                var start = StartOfWeek(weekStart);
+                var end = start.AddDays(7);   // Mon → next Mon
 
-                // Pull check-in rows for the selected week
-                var rows = await _api.GetDailyReport(start, end) ?? new List<WeeklyReportRow>();
+                List<WeeklyReportRow> rows = null;
 
-                // Build a full Mon→Sun list and add "No bookings" placeholders
-                var filled = new List<WeeklyReportRow>();
+                // 1) Try the /reports/daily?start=...&end=... route (EF controllers)
+                try
+                {
+                    rows = await _api.GetDailyReport(start, end);
+                }
+                catch
+                {
+                    // 2) Fallback to /reports/weekly?weekStart=... (XML controllers)
+                    rows = await _api.GetWeeklyReport(start);
+                }
+
+                if (rows == null)
+                {
+                    rows = new List<WeeklyReportRow>();
+                }
+
+
+                // Render Mon→Sun, filling “No bookings” when needed
+                listViewReport.BeginUpdate();
                 listViewReport.Items.Clear();
+                var filled = new List<WeeklyReportRow>();
 
                 for (int i = 0; i < 7; i++)
                 {
@@ -87,28 +114,22 @@ namespace HotelBookingApp.Views
 
                     if (rowsForDay.Count == 0)
                     {
-                        // UI row
                         var item = new ListViewItem($"{day:dddd, yyyy-MM-dd}");
-                        item.SubItems.Add("No Bookings");
+                        item.SubItems.Add("No bookings");
+                        item.SubItems.Add("-");
+                        item.SubItems.Add("-");
                         listViewReport.Items.Add(item);
 
-                        // Keep a placeholder for export
-                        filled.Add(new WeeklyReportRow
-                        {
-                            Day = day,
-                            Guest = "No bookings",
-                            RoomType = "-",
-                            Request = "-"
-                        });
+                        filled.Add(new WeeklyReportRow { Day = day, Guest = "No bookings", RoomType = "-", Request = "-" });
                     }
                     else
                     {
                         foreach (var r in rowsForDay)
                         {
                             var item = new ListViewItem($"{day:dddd, yyyy-MM-dd}");
-                            item.SubItems.Add(r.Guest);
-                            item.SubItems.Add(r.RoomType);
-                            item.SubItems.Add(r.Request);
+                            item.SubItems.Add(r.Guest ?? "");
+                            item.SubItems.Add(r.RoomType ?? "");
+                            item.SubItems.Add(r.Request ?? "");
                             listViewReport.Items.Add(item);
 
                             filled.Add(new WeeklyReportRow
@@ -124,12 +145,25 @@ namespace HotelBookingApp.Views
 
                 _weeklyEntries = filled;
             }
+            catch (System.Net.Http.HttpRequestException httpEx)
+            {
+                MessageBox.Show(
+                    "Failed to load weekly report.\n" +
+                    $"Network/HTTP error: {httpEx.Message}\n\n" +
+                    "Tip: Ensure the API is running and BaseAddress/UseXmlRoutes in ApiOptions match it.",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to load weekly report.\n" + ex.Message,
                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            finally
+            {
+                listViewReport.EndUpdate();
+            }
         }
+
 
         // -------------------- CSV Export --------------------
         private void btnExportCSV_Click(object sender, EventArgs e)
@@ -155,10 +189,12 @@ namespace HotelBookingApp.Views
                 foreach (var entry in _weeklyEntries)
                 {
                     var day = entry.Day.ToString("dddd, yyyy-MM-dd");
-                    var guest = EscapeCsv(entry.Guest);
-                    var room = EscapeCsv(entry.RoomType);
-                    var req = EscapeCsv(entry.Request);
-                    sb.AppendLine($"{EscapeCsv(day)},{guest},{room},{req}");
+                    var csv = string.Join(",",
+                        EscapeCsv(day),
+                        EscapeCsv(entry.Guest),
+                        EscapeCsv(entry.RoomType),
+                        EscapeCsv(entry.Request));
+                    sb.AppendLine(csv);
                 }
 
                 File.WriteAllText(sfd.FileName, sb.ToString());
@@ -169,10 +205,10 @@ namespace HotelBookingApp.Views
 
         private static string EscapeCsv(string s)
         {
-            if (s == null) return "";
-            if (s.Contains(",") || s.Contains("\"") || s.Contains("\n"))
-                return "\"" + s.Replace("\"", "\"\"") + "\"";
-            return s;
+            if (string.IsNullOrEmpty(s)) return "";
+            return (s.Contains(",") || s.Contains("\"") || s.Contains("\n"))
+                ? "\"" + s.Replace("\"", "\"\"") + "\""
+                : s;
         }
 
         // -------------------- PDF Export --------------------
@@ -223,7 +259,7 @@ namespace HotelBookingApp.Views
             }
         }
 
-        // Designer-wired but unused in this version
+        // Designer-wired placeholders
         private void listViewReport_SelectedIndexChanged(object sender, EventArgs e) { }
         private void navigationMenu1_Load(object sender, EventArgs e) { }
     }

@@ -80,6 +80,12 @@ namespace HotelBookingApp.Services
             => GetAsync<List<WeeklyReportRow>>($"{P("reports")}/weekly?weekStart={weekStart:O}");
 
         public Task<List<WeeklyReportRow>> GetDailyReport(DateTime start, DateTime end)
-            => GetAsync<List<WeeklyReportRow>>($"{P("reports")}/daily?start={start:O}&end={end:O}");
+        {
+            // send simple dates: 2025-08-18
+            string s = start.ToString("yyyy-MM-dd");
+            string e = end.ToString("yyyy-MM-dd");
+            return GetAsync<List<WeeklyReportRow>>($"{P("reports")}/daily?start={s}&end={e}");
+        }
+
     }
 }
