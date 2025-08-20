@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;      // LicenseManager.UsageMode
+using System.ComponentModel;      
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelBooking.Contracts;     // WeeklyReportRow (class with settable props)
+using HotelBooking.Contracts;     
 using HotelBookingApp.Services;   // ApiClient
 using iText.Kernel.Pdf;
 using iText.Layout;
@@ -20,17 +20,17 @@ namespace HotelBookingApp.Views
         private ApiClient _api;                                   // injected at runtime
         private List<WeeklyReportRow> _weeklyEntries = new List<WeeklyReportRow>();
 
-        // -------- Designer-safe ctor (no networking) --------
+        // Designer-safe ctor
         public ReportForm()
         {
             InitializeComponent();
             this.Name = "ReportForm";
 
-            // Show the current week's Monday in the picker (no API calls here)
+            // Show the current week's Monday in the picker
             dtpWeekStart.Value = StartOfWeek(DateTime.Today);
         }
 
-        // -------- Runtime ctor (inject ApiClient) --------
+        // Runtime ctor (inject ApiClient)
         public ReportForm(ApiClient api) : this()
         {
             _api = api ?? throw new ArgumentNullException(nameof(api));
@@ -38,22 +38,22 @@ namespace HotelBookingApp.Views
 
         private async void ReportForm_Load(object sender, EventArgs e)
         {
-            // Design-time OR no API => do nothing so the designer stays happy
+            // Design-time OR no API
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || _api == null)
                 return;
 
             await LoadWeeklyReportAsync(dtpWeekStart.Value);
         }
 
-        // Keep the picker aligned to Mondays (avoid re-entrancy if already Monday)
+        // Keep the picker aligned to Mondays
         private async void dtpWeekStart_ValueChanged(object sender, EventArgs e)
         {
             var current = dtpWeekStart.Value;
             var monday = StartOfWeek(current);
-            if (monday != current.Date)            // only set if it actually changes
+            if (monday != current.Date)           
             {
                 dtpWeekStart.Value = monday;
-                return;                             // let the next event fire with normalized value
+                return;                             
             }
 
             if (_api != null && LicenseManager.UsageMode != LicenseUsageMode.Designtime)
@@ -73,7 +73,7 @@ namespace HotelBookingApp.Views
             return d;
         }
 
-        // -------------------- Core loader --------------------
+        // Core loader
         private async Task LoadWeeklyReportAsync(DateTime weekStart)
         {
             if (_api == null) return;
@@ -81,18 +81,18 @@ namespace HotelBookingApp.Views
             try
             {
                 var start = StartOfWeek(weekStart);
-                var end = start.AddDays(7);   // Mon → next Mon
+                var end = start.AddDays(7);
 
                 List<WeeklyReportRow> rows = null;
 
-                // 1) Try the /reports/daily?start=...&end=... route (EF controllers)
+                
                 try
                 {
                     rows = await _api.GetDailyReport(start, end);
                 }
                 catch
                 {
-                    // 2) Fallback to /reports/weekly?weekStart=... (XML controllers)
+                    
                     rows = await _api.GetWeeklyReport(start);
                 }
 
@@ -101,8 +101,6 @@ namespace HotelBookingApp.Views
                     rows = new List<WeeklyReportRow>();
                 }
 
-
-                // Render Mon→Sun, filling “No bookings” when needed
                 listViewReport.BeginUpdate();
                 listViewReport.Items.Clear();
                 var filled = new List<WeeklyReportRow>();
@@ -165,7 +163,7 @@ namespace HotelBookingApp.Views
         }
 
 
-        // -------------------- CSV Export --------------------
+        // CSV Export
         private void btnExportCSV_Click(object sender, EventArgs e)
         {
             if (_weeklyEntries == null || _weeklyEntries.Count == 0)
@@ -211,7 +209,7 @@ namespace HotelBookingApp.Views
                 : s;
         }
 
-        // -------------------- PDF Export --------------------
+        // PDF Export
         private void btnExportPDF_Click(object sender, EventArgs e)
         {
             if (_weeklyEntries == null || _weeklyEntries.Count == 0)

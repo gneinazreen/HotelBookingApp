@@ -31,7 +31,7 @@ public class HotelContext : DbContext
         // helpful index for overlap lookups
         b.Entity<Booking>().HasIndex(x => new { x.RoomId, x.CheckIn, x.CheckOut });
 
-        // (optional) FK integrity without nav props
+        // FK integrity without nav props
         b.Entity<Booking>()
             .HasOne<Room>()
             .WithMany()

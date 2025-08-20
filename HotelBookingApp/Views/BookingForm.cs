@@ -1,18 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;          // for LicenseManager.UsageMode
+using System.ComponentModel;         
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using HotelBooking.Contracts;         // BookingDto, RoomDto, SpecialRequestDto
-using HotelBookingApp.Services;       // ApiClient
+using HotelBooking.Contracts;         
+using HotelBookingApp.Services;       
 using HotelBookingApp.Validators;
 using HotelBookingApp;
 namespace HotelBookingApp.Views
 {
     public partial class BookingForm : Form
     {
-        private ApiClient _api;  // will be set by runtime ctor
+        private ApiClient _api;  
 
         // Local caches from API
         private List<RoomDto> _rooms = new List<RoomDto>();
@@ -30,15 +30,15 @@ namespace HotelBookingApp.Views
             public override string ToString() => Text;
         }
 
-        // ----------------- Constructors -----------------
+        // Constructors
 
-        // Designer-safe ctor: do NOT touch _api or call network here
+        // Designer-safe ctor
         public BookingForm()
         {
             InitializeComponent();
             this.Name = "BookingForm";
 
-            // existing checkbox wiring...
+            // existing checkbox wiring
             checkRecurring.CheckedChanged += (s, e) =>
             {
                 lblRecurrence.Visible = checkRecurring.Checked;
@@ -50,26 +50,24 @@ namespace HotelBookingApp.Views
             // add the nav menu at the top
             _nav = new NavigationMenu { Dock = DockStyle.Top };
             Controls.Add(_nav);
-            Controls.SetChildIndex(_nav, 0);   // keep it at the top
+            Controls.SetChildIndex(_nav, 0);
         }
 
-        // Runtime ctor: pass ApiClient from Program/Main
+        // Runtime ctor
         public BookingForm(ApiClient api) : this()
         {
             _api = api ?? throw new ArgumentNullException(nameof(api));
-            _nav.SetApi(_api);                 // wire API into the menu
+            _nav.SetApi(_api);                 
         }
 
 
-        // ----------------- Form events -----------------
+        // Form events
 
         private async void BookingForm_Load(object sender, EventArgs e)
         {
-            // Don’t run at design-time; don’t run without API
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || _api == null)
                 return;
 
-            // Disable past dates
             checkInDate.MinDate = DateTime.Today;
             checkOutDate.MinDate = DateTime.Today.AddDays(1);
 
@@ -99,11 +97,10 @@ namespace HotelBookingApp.Views
             lblRecurrence.Visible = isChecked;
         }
 
-        // ----------------- Data loading -----------------
+        // Data loading
 
         private async Task LoadReferenceDataAsync()
         {
-            // Don’t run at design-time or without an API client
             if (_api == null || LicenseManager.UsageMode == LicenseUsageMode.Designtime)
                 return;
 
@@ -192,7 +189,7 @@ namespace HotelBookingApp.Views
 
 
 
-        // Called by RoomForm after room CRUD (optional public hook)
+        // Called by RoomForm after room CRUD
         public void UpdateRoomTypes()
         {
             cmbRoomType.Items.Clear();
@@ -253,7 +250,7 @@ namespace HotelBookingApp.Views
             cmbRecPattern.Text = string.IsNullOrWhiteSpace(booking.RecurrencePattern) ? "None" : booking.RecurrencePattern;
         }
 
-        // ----------------- CRUD -----------------
+        // CRUD
 
         private async void btnAdd_Click_1(object sender, EventArgs e)
         {
@@ -278,7 +275,7 @@ namespace HotelBookingApp.Views
                 return;
             }
 
-            // *** FIX: use object initializer (class DTO) ***
+            // use object initializer (class DTO)
             var dto = new BookingDto
             {
                 BookingId = 0,
@@ -335,7 +332,7 @@ namespace HotelBookingApp.Views
                 return;
             }
 
-            // *** FIX: use object initializer (class DTO) ***
+            // use object initializer (class DTO)
             var dto = new BookingDto
             {
                 BookingId = id,
@@ -392,7 +389,7 @@ namespace HotelBookingApp.Views
             }
         }
 
-        // ----------------- Misc UI handlers -----------------
+        // Misc UI handlers
 
         private void LName_Click(object sender, EventArgs e) { }
         private void FName_Click(object sender, EventArgs e) { }
@@ -403,7 +400,7 @@ namespace HotelBookingApp.Views
         private void label3_Click(object sender, EventArgs e) { }
         private void txtFName_TextChanged(object sender, EventArgs e) { }
 
-        // ----------------- Helpers -----------------
+        // Helpers
 
         private void ClearFields()
         {

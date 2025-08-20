@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;   // LicenseManager.UsageMode
+using System.ComponentModel;   
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,14 +14,14 @@ namespace HotelBookingApp.Views
         private ApiClient _api;                                   // injected at runtime
         private List<SpecialRequestDto> _requests = new List<SpecialRequestDto>();
 
-        // -------- DESIGNER-SAFE CTOR (no IO/network here) --------
+        // DESIGNER-SAFE CTOR
         public RequestForm()
         {
             InitializeComponent();
             this.Name = "RequestForm";
         }
 
-        // -------- RUNTIME CTOR (inject ApiClient from Main form) --------
+        // RUNTIME CTOR (inject ApiClient from Main form)
         public RequestForm(ApiClient api) : this()
         {
             _api = api ?? throw new ArgumentNullException(nameof(api));
@@ -29,14 +29,13 @@ namespace HotelBookingApp.Views
 
         private async void RequestForm_Load(object sender, EventArgs e)
         {
-            // Don’t execute during design-time or without API
             if (LicenseManager.UsageMode == LicenseUsageMode.Designtime || _api == null)
                 return;
 
             await LoadRequestsAsync();
         }
 
-        // ----------------------- READ -----------------------
+        // READ
         private async Task LoadRequestsAsync()
         {
             try
@@ -59,7 +58,7 @@ namespace HotelBookingApp.Views
             }
         }
 
-        // ----------------------- CREATE -----------------------
+        // CREATE
         private async void btnAdd_Click(object sender, EventArgs e)
         {
             if (_api == null) return;
@@ -95,7 +94,7 @@ namespace HotelBookingApp.Views
             }
         }
 
-        // ----------------------- UPDATE -----------------------
+        // UPDATE
         private async void btnUpdate_Click(object sender, EventArgs e)
         {
             if (_api == null) return;
@@ -144,7 +143,7 @@ namespace HotelBookingApp.Views
             }
         }
 
-        // ----------------------- DELETE -----------------------
+        // DELETE
         private async void btnDelete_Click(object sender, EventArgs e)
         {
             if (_api == null) return;
@@ -174,7 +173,7 @@ namespace HotelBookingApp.Views
             }
         }
 
-        // ----------------------- UI wiring -----------------------
+        // UI wiring
         private void listViewRequests_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (listViewRequests.SelectedItems.Count == 0) return;
@@ -190,7 +189,7 @@ namespace HotelBookingApp.Views
 
         private void txtDescription_TextChanged(object sender, EventArgs e) { }
 
-        // ----------------------- helpers -----------------------
+        // helpers
         private static List<string> ValidateInputs(string description, string category)
         {
             var errs = new List<string>();

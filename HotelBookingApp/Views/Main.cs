@@ -8,7 +8,7 @@ namespace HotelBookingApp.Views
     {
         private ApiClient _api;
 
-        // Designer-safe ctor (no network work here)
+        // Designer-safe ctor
         public Main()
         {
             InitializeComponent();
@@ -24,7 +24,7 @@ namespace HotelBookingApp.Views
         private void Main_Load(object sender, EventArgs e)
         {
             this.Text = "Hotel Booking Management - Dashboard";
-            WireNavigationMenuApi();   // pass ApiClient to the top menu (if present)
+            WireNavigationMenuApi();   // pass ApiClient
         }
 
         private void btnBookings_Click(object sender, EventArgs e)
@@ -57,7 +57,7 @@ namespace HotelBookingApp.Views
 
         private void btnChatbot_Click(object sender, EventArgs e)
         {
-            // ChatbotForm can stay local-data based for now
+            // ChatbotForm can stay local-data based
             using (var chatbotForm = new ChatbotForm())
                 chatbotForm.ShowDialog(this);
         }
@@ -85,23 +85,22 @@ namespace HotelBookingApp.Views
         {
             try
             {
-                // The control is generated in Main.Designer.cs if you dropped it on the form.
                 var menuField = this.GetType().GetField("navigationMenu1",
                     System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
 
-                if (menuField == null) return; // no menu on this form
+                if (menuField == null) return;
 
                 var menu = menuField.GetValue(this) as NavigationMenu;
                 if (menu == null) return;
 
                 if (_api != null)
                 {
-                    menu.SetApi(_api); // method provided in the updated NavigationMenu.cs
+                    menu.SetApi(_api);
                 }
             }
             catch
             {
-                // Safe no-op if the control name or type differs.
+                
             }
         }
     }

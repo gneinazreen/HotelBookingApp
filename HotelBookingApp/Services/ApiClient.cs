@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using HotelBooking.Contracts;           // <— use the contracts library
-using Newtonsoft.Json;                  // <— use Newtonsoft for (de)serialization
+using HotelBooking.Contracts;           
+using Newtonsoft.Json;                  
 
 namespace HotelBookingApp.Services
 {
@@ -23,7 +23,7 @@ namespace HotelBookingApp.Services
         private string P(string controller)
             => _opt.UseXmlRoutes ? $"api/xml/{controller}" : $"api/{controller}";
 
-        // ---------- generic helpers (Newtonsoft + raw HttpClient) ----------
+        // generic helpers (Newtonsoft + raw HttpClient)
         private async Task<T> GetAsync<T>(string url)
         {
             var res = await _http.GetAsync(url).ConfigureAwait(false);
@@ -54,28 +54,28 @@ namespace HotelBookingApp.Services
             res.EnsureSuccessStatusCode();
         }
 
-        // ---------- Rooms ----------
+        //  Rooms
         public Task<List<RoomDto>> GetRooms() => GetAsync<List<RoomDto>>(P("rooms"));
         public Task<RoomDto> GetRoom(int id) => GetAsync<RoomDto>($"{P("rooms")}/{id}");
         public Task<RoomDto> CreateRoom(RoomDto dto) => PostAsync<RoomDto>(P("rooms"), dto);
         public Task UpdateRoom(RoomDto dto) => PutAsync($"{P("rooms")}/{dto.RoomId}", dto);
         public Task DeleteRoom(int id) => DeleteAsync($"{P("rooms")}/{id}");
 
-        // ---------- Requests ----------
+        // Requests 
         public Task<List<SpecialRequestDto>> GetRequests() => GetAsync<List<SpecialRequestDto>>(P("requests"));
         public Task<SpecialRequestDto> GetRequest(int id) => GetAsync<SpecialRequestDto>($"{P("requests")}/{id}");
         public Task<SpecialRequestDto> CreateRequest(SpecialRequestDto dto) => PostAsync<SpecialRequestDto>(P("requests"), dto);
         public Task UpdateRequest(SpecialRequestDto dto) => PutAsync($"{P("requests")}/{dto.RequestId}", dto);
         public Task DeleteRequest(int id) => DeleteAsync($"{P("requests")}/{id}");
 
-        // ---------- Bookings ----------
+        // Bookings
         public Task<List<BookingDto>> GetBookings() => GetAsync<List<BookingDto>>(P("bookings"));
         public Task<BookingDto> GetBooking(int id) => GetAsync<BookingDto>($"{P("bookings")}/{id}");
         public Task<BookingDto> CreateBooking(BookingDto dto) => PostAsync<BookingDto>(P("bookings"), dto);
         public Task UpdateBooking(BookingDto dto) => PutAsync($"{P("bookings")}/{dto.BookingId}", dto);
         public Task DeleteBooking(int id) => DeleteAsync($"{P("bookings")}/{id}");
 
-        // ---------- Reports ----------
+        // Reports
         public Task<List<WeeklyReportRow>> GetWeeklyReport(DateTime weekStart)
             => GetAsync<List<WeeklyReportRow>>($"{P("reports")}/weekly?weekStart={weekStart:O}");
 

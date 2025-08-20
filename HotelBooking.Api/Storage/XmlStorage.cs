@@ -33,7 +33,7 @@ namespace HotelBooking.Api.Storage
         private XDocument LoadDoc() => XDocument.Load(_path);
         private void SaveDoc(XDocument doc) => doc.Save(_path);
 
-        // ---------- ROOMS ----------
+        // ROOMS
         public IEnumerable<Room> GetRooms()
         {
             lock (_lock)
@@ -87,7 +87,7 @@ namespace HotelBooking.Api.Storage
             }
         }
 
-        // ---------- REQUESTS ----------
+        // REQUESTS
         public IEnumerable<SpecialRequest> GetRequests()
         {
             lock (_lock)
@@ -141,7 +141,7 @@ namespace HotelBooking.Api.Storage
             }
         }
 
-        // ---------- BOOKINGS ----------
+        // BOOKINGS
         public IEnumerable<Booking> GetBookings()
         {
             lock (_lock)
@@ -203,7 +203,7 @@ namespace HotelBooking.Api.Storage
             }
         }
 
-        // ---------- XML (de)serializers ----------
+        // XML (de)serializers
         private static XElement ToX(Room r) => new("Room",
             new XElement("RoomId", r.RoomId),
             new XElement("RoomType", r.RoomType ?? string.Empty),
@@ -248,7 +248,7 @@ namespace HotelBooking.Api.Storage
             CheckIn = DateTime.Parse((string)e.Element("CheckInDate")!, null, DateTimeStyles.RoundtripKind),
             CheckOut = DateTime.Parse((string)e.Element("CheckOutDate")!, null, DateTimeStyles.RoundtripKind),
             RoomId = (int)e.Element("RoomId")!,
-            RequestId = (int)e.Element("RequestId")!, // required to match your domain
+            RequestId = (int)e.Element("RequestId")!,
             IsRecurring = bool.TryParse((string?)e.Element("IsRecurring"), out var recur) && recur,
             RecurrencePattern = (string?)e.Element("RecurrencePattern") ?? "None"
         };

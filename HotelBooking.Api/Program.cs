@@ -4,21 +4,21 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// ---------- Configuration ----------
+// Configuration
 var config = builder.Configuration;
 
 // XML storage file path (fallback to App_Data/hotel.xml)
 var xmlPath = config["XmlStorage:FilePath"]
               ?? Path.Combine(AppContext.BaseDirectory, "App_Data", "hotel.xml");
 
-// ---------- Services ----------
+//Services
 builder.Services.AddControllers();
 
 // Register XML storage (used by /api/xml/* controllers)
 builder.Services.AddSingleton<IStorage>(_ => new XmlStorage(xmlPath));
 
 // EF Core (demo: InMemory DB so /api/* controllers work out of the box)
-// Swap to UseSqlServer(config.GetConnectionString("HotelDb")) if you add SQL Server.
+// Swap to UseSqlServer(config.GetConnectionString("HotelDb"))
 builder.Services.AddDbContext<HotelContext>(opt =>
     opt.UseInMemoryDatabase("HotelDb"));
 
@@ -27,7 +27,7 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-// ---------- Middleware & Swagger ----------
+// Middleware & Swagger
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
 app.UseRouting();
 app.MapControllers();
 
-// ---------- Seed EF demo data ----------
+// Seed EF demo data
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<HotelContext>();
