@@ -39,7 +39,7 @@
             // btnBookings
             // 
             this.btnBookings.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnBookings.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBookings.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBookings.ForeColor = System.Drawing.Color.White;
             this.btnBookings.Location = new System.Drawing.Point(49, 138);
             this.btnBookings.Margin = new System.Windows.Forms.Padding(4);
@@ -54,12 +54,12 @@
             // btnRooms
             // 
             this.btnRooms.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnRooms.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRooms.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRooms.ForeColor = System.Drawing.Color.White;
             this.btnRooms.Location = new System.Drawing.Point(305, 138);
             this.btnRooms.Margin = new System.Windows.Forms.Padding(4);
             this.btnRooms.Name = "btnRooms";
-            this.btnRooms.Size = new System.Drawing.Size(181, 55);
+            this.btnRooms.Size = new System.Drawing.Size(197, 55);
             this.btnRooms.TabIndex = 1;
             this.btnRooms.Text = "Manage Rooms";
             this.btnRooms.UseVisualStyleBackColor = false;
@@ -68,9 +68,9 @@
             // btnRequests
             // 
             this.btnRequests.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnRequests.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRequests.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRequests.ForeColor = System.Drawing.Color.White;
-            this.btnRequests.Location = new System.Drawing.Point(507, 138);
+            this.btnRequests.Location = new System.Drawing.Point(522, 138);
             this.btnRequests.Margin = new System.Windows.Forms.Padding(4);
             this.btnRequests.Name = "btnRequests";
             this.btnRequests.Size = new System.Drawing.Size(211, 58);
@@ -82,9 +82,9 @@
             // btnReports
             // 
             this.btnReports.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReports.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReports.ForeColor = System.Drawing.Color.White;
-            this.btnReports.Location = new System.Drawing.Point(139, 230);
+            this.btnReports.Location = new System.Drawing.Point(175, 230);
             this.btnReports.Margin = new System.Windows.Forms.Padding(4);
             this.btnReports.Name = "btnReports";
             this.btnReports.Size = new System.Drawing.Size(203, 50);
@@ -96,9 +96,9 @@
             // btnChatbot
             // 
             this.btnChatbot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnChatbot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnChatbot.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChatbot.ForeColor = System.Drawing.Color.White;
-            this.btnChatbot.Location = new System.Drawing.Point(369, 230);
+            this.btnChatbot.Location = new System.Drawing.Point(407, 230);
             this.btnChatbot.Margin = new System.Windows.Forms.Padding(4);
             this.btnChatbot.Name = "btnChatbot";
             this.btnChatbot.Size = new System.Drawing.Size(133, 50);
@@ -125,7 +125,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.ClientSize = new System.Drawing.Size(755, 380);
+            this.ClientSize = new System.Drawing.Size(792, 380);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.btnChatbot);
             this.Controls.Add(this.btnReports);
