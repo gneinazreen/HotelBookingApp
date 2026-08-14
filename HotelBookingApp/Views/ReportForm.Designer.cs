@@ -79,24 +79,30 @@
             // 
             // btnExportCSV
             // 
-            this.btnExportCSV.Location = new System.Drawing.Point(157, 441);
+            this.btnExportCSV.BackColor = System.Drawing.Color.Teal;
+            this.btnExportCSV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportCSV.ForeColor = System.Drawing.Color.White;
+            this.btnExportCSV.Location = new System.Drawing.Point(157, 428);
             this.btnExportCSV.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExportCSV.Name = "btnExportCSV";
-            this.btnExportCSV.Size = new System.Drawing.Size(132, 28);
+            this.btnExportCSV.Size = new System.Drawing.Size(161, 41);
             this.btnExportCSV.TabIndex = 1;
             this.btnExportCSV.Text = "Export to CSV";
-            this.btnExportCSV.UseVisualStyleBackColor = true;
+            this.btnExportCSV.UseVisualStyleBackColor = false;
             this.btnExportCSV.Click += new System.EventHandler(this.btnExportCSV_Click);
             // 
             // btnExportPDF
             // 
-            this.btnExportPDF.Location = new System.Drawing.Point(392, 441);
+            this.btnExportPDF.BackColor = System.Drawing.Color.Teal;
+            this.btnExportPDF.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExportPDF.ForeColor = System.Drawing.Color.White;
+            this.btnExportPDF.Location = new System.Drawing.Point(392, 428);
             this.btnExportPDF.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnExportPDF.Name = "btnExportPDF";
-            this.btnExportPDF.Size = new System.Drawing.Size(132, 28);
+            this.btnExportPDF.Size = new System.Drawing.Size(161, 41);
             this.btnExportPDF.TabIndex = 2;
             this.btnExportPDF.Text = "Export to PDF";
-            this.btnExportPDF.UseVisualStyleBackColor = true;
+            this.btnExportPDF.UseVisualStyleBackColor = false;
             this.btnExportPDF.Click += new System.EventHandler(this.btnExportPDF_Click);
             // 
             // label4
@@ -122,13 +128,16 @@
             // 
             // btnLoadWeek
             // 
+            this.btnLoadWeek.BackColor = System.Drawing.Color.Teal;
+            this.btnLoadWeek.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLoadWeek.ForeColor = System.Drawing.Color.White;
             this.btnLoadWeek.Location = new System.Drawing.Point(527, 108);
             this.btnLoadWeek.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnLoadWeek.Name = "btnLoadWeek";
-            this.btnLoadWeek.Size = new System.Drawing.Size(100, 28);
+            this.btnLoadWeek.Size = new System.Drawing.Size(129, 43);
             this.btnLoadWeek.TabIndex = 19;
             this.btnLoadWeek.Text = "Load Week";
-            this.btnLoadWeek.UseVisualStyleBackColor = true;
+            this.btnLoadWeek.UseVisualStyleBackColor = false;
             this.btnLoadWeek.Click += new System.EventHandler(this.btnLoadWeek_Click);
             // 
             // lblWeekStartDate

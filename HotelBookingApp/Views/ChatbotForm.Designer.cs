@@ -43,6 +43,7 @@
             // txtResponse
             // 
             this.txtResponse.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.txtResponse.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtResponse.Location = new System.Drawing.Point(8, 62);
             this.txtResponse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtResponse.Name = "txtResponse";
@@ -111,6 +112,7 @@
             // txtQuestion
             // 
             this.txtQuestion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.txtQuestion.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtQuestion.Location = new System.Drawing.Point(4, 58);
             this.txtQuestion.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtQuestion.Name = "txtQuestion";
